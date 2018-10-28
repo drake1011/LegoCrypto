@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crypto\Bitwise.cs" />
+    <Compile Include="Model\BlankTag.cs" />
     <Compile Include="Model\DataRegister.cs" />
     <Compile Include="Model\CharacterTag.cs" />
     <Compile Include="Crypto\CharCrypto.cs" />

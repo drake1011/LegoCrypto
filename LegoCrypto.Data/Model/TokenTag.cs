@@ -5,7 +5,7 @@ namespace LegoCrypto.Data.Model
 {
     public class TokenTag : ITag
     {
-        public uint ID { get; private set; }
+        public uint? ID { get; private set; }
         public string UID { get; private set; }
         public DataRegisterCollection Pages { get; private set; }
 
@@ -39,7 +39,7 @@ namespace LegoCrypto.Data.Model
             if ((UID ?? string.Empty) == string.Empty)
                 throw new Exception("UID not set");
 
-            Pages[DataRegister.Page36] = CharCrypto.ReturnTokenHex(ID);
+            Pages[DataRegister.Page36] = CharCrypto.ReturnTokenHex(ID ?? 0);
             Pages[DataRegister.Page43] = CharCrypto.PWDGen(UID);
         }
     }

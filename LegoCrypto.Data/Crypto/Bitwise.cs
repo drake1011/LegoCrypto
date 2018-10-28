@@ -154,7 +154,7 @@ namespace LegoCrypto.Data.Crypto
         {
             if (hexString.Length % 2 != 0)
             {
-                throw new ArgumentException(String.Format("The binary key cannot have an odd number of digits: {0}", hexString));
+                throw new ArgumentException($"The binary key cannot have an odd number of digits: {hexString}");
             }
 
             byte[] HexAsBytes = new byte[hexString.Length / 2];
