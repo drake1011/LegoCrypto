@@ -32,6 +32,7 @@ namespace LegoCrypto.WPF.App
         {
             InitializeComponent();
             _vm = root.DataContext as TagDataViewModel;
+            DataObject.AddPastingHandler(txtID, OnPaste);
         }
 
         public string Error { get { return string.Empty; } }
@@ -68,6 +69,7 @@ namespace LegoCrypto.WPF.App
             }
         }
 
+        #region Dependancy Properties
         public string UID { get => (string)GetValue(UIDProperty); set { SetValue(UIDProperty, value); } }
 
         public static readonly DependencyProperty UIDProperty =
@@ -127,7 +129,9 @@ namespace LegoCrypto.WPF.App
         public ITagData TagData
         {
             get => (ITagData)GetValue(TagDataProperty);
-            set { SetValue(TagDataProperty, value);
+            set
+            {
+                SetValue(TagDataProperty, value);
                 UID = TagData.UID;
                 TokenID = TagData.ID;
                 DataPage35 = TagData.Pages[DataRegister.Page35];
@@ -146,7 +150,7 @@ namespace LegoCrypto.WPF.App
 
         public EditMode EditMode { get => (EditMode)GetValue(EditModeProperty); set => SetValue(EditModeProperty, value); }
 
-        public static readonly DependencyProperty EditModeProperty = 
+        public static readonly DependencyProperty EditModeProperty =
             DependencyProperty.Register("EditMode",
                 typeof(EditMode), typeof(TagDataView),
                 new PropertyMetadata(EditMode.FullEdit, (d, e) => ((TagDataView)d)._vm.EditMode = (EditMode)e.NewValue));
@@ -164,8 +168,20 @@ namespace LegoCrypto.WPF.App
             DependencyProperty.Register("TextBoxDefaultBGBrush",
                 typeof(Brush), typeof(TagDataView),
                 new PropertyMetadata(null, (d, e) => ((TagDataView)d)._vm.DefaultBGBrush = (Brush)e.NewValue));
+        #endregion
 
-        private void txtID_PreviewTextInput(object sender, TextCompositionEventArgs e) => e.Handled = !int.TryParse(e.Text, out int result);
+        private void txtID_PreviewTextInput(object sender, TextCompositionEventArgs e) => e.Handled = !uint.TryParse(e.Text, out uint result);
+
+        private void OnPaste(object sender, DataObjectPastingEventArgs e)
+        {
+            var isText = e.SourceDataObject.GetDataPresent(DataFormats.UnicodeText, true);
+            if (!isText) return;
+
+            var text = e.SourceDataObject.GetData(DataFormats.UnicodeText) as string;
+
+            if (!uint.TryParse(text, out uint result))
+                e.CancelCommand();
+        }
     }
 
     public enum EditMode
