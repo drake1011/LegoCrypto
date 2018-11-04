@@ -60,7 +60,7 @@ namespace LegoCrypto.Tests
             var test = tag.GetType();
             Assert.AreEqual(tag.GetType().Name, _charTagImpl);
             Assert.AreEqual(_uid, tag.UID);
-            //Assert.AreEqual(_char_id, tag.ID);
+            Assert.AreEqual(_char_id, tag.ID);
             Assert.AreEqual(_char_page35, tag.Pages[DataRegister.Page35]);
             Assert.AreEqual(_char_page36, tag.Pages[DataRegister.Page36]);
             Assert.AreEqual(_char_page37, tag.Pages[DataRegister.Page37]);
@@ -75,7 +75,7 @@ namespace LegoCrypto.Tests
             //verify the correct implementation was created
             Assert.AreEqual(tag.GetType().Name, _tokenTagImpl);
             Assert.AreEqual(_uid, tag.UID);
-            //Assert.AreEqual(_token_id, tag.ID);
+            Assert.AreEqual(_token_id, tag.ID);
             Assert.AreEqual(_token_page35, tag.Pages[DataRegister.Page35]);
             Assert.AreEqual(_token_page36, tag.Pages[DataRegister.Page36]);
             Assert.AreEqual(_token_page37, tag.Pages[DataRegister.Page37]);
@@ -98,7 +98,7 @@ namespace LegoCrypto.Tests
         }
 
         [TestMethod]
-        public void Test_Decrypt_Character_Pass()
+        public void Test_Decrypt_Character_data_Pass()
         {
             var tag = TagFactory.CreateTag(data: _uid + _char_page35 + _char_page36 + _char_page37 + _char_page38);
             tag.Decrypt();
@@ -128,7 +128,7 @@ namespace LegoCrypto.Tests
         }
 
         [TestMethod]
-        public void Test_Decrypt_Token_Pass()
+        public void Test_Decrypt_Token_data_Pass()
         {
             var tag = TagFactory.CreateTag(data: _uid + _token_page35 + _token_page36 + _token_page37 + _token_page38);
             tag.Decrypt();
@@ -139,6 +139,28 @@ namespace LegoCrypto.Tests
             Assert.AreEqual(_token_page36, tag.Pages[DataRegister.Page36]);
             Assert.AreEqual(_token_page37, tag.Pages[DataRegister.Page37]);
             Assert.AreEqual(_token_page38, tag.Pages[DataRegister.Page38]);
+            Assert.AreEqual(_pwd, tag.Pages[DataRegister.Page43]);
+        }
+
+        [TestMethod]
+        public void Test_Decrypt_Character_id_Pass()
+        {
+            var tag = TagFactory.CreateTag(id: _char_id, uid: _uid);
+            tag.Decrypt();
+
+            Assert.AreEqual(_uid, tag.UID);
+            Assert.AreEqual(_char_id, tag.ID);
+            Assert.AreEqual(_pwd, tag.Pages[DataRegister.Page43]);
+        }
+
+        [TestMethod]
+        public void Test_Decrypt_Token_id_Pass()
+        {
+            var tag = TagFactory.CreateTag(id: _token_id, uid: _uid);
+            tag.Decrypt();
+
+            Assert.AreEqual(_uid, tag.UID);
+            Assert.AreEqual(_token_id, tag.ID);
             Assert.AreEqual(_pwd, tag.Pages[DataRegister.Page43]);
         }
 

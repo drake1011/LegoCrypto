@@ -22,11 +22,20 @@ namespace LegoCrypto.Data.Model
         {
             UID = uid;
             Pages = pages;
+            ID = DecryptID();
+        }
+
+        private uint? DecryptID()
+        {
+            if (Pages[DataRegister.Page36]?.Length > 0 && Pages[DataRegister.Page37]?.Length > 0)
+                return CharCrypto.Decrypt(UID, Pages[DataRegister.Page36] + Pages[DataRegister.Page37]);
+            else
+                return ID;
         }
 
         public void Decrypt()
         {
-            ID = CharCrypto.Decrypt(UID, Pages[DataRegister.Page36] + Pages[DataRegister.Page37]);
+            ID = DecryptID();
             Pages[DataRegister.Page43] = CharCrypto.PWDGen(UID);
         }
 
