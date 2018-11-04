@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LegoCrypto.WPF.App"
-             mc:Ignorable="d" >
-    <Grid x:Name="root">
+             mc:Ignorable="d"  >
+    <Grid x:Name="root" FocusManager.FocusedElement="{Binding ElementName=txtUID}">
         <Grid.DataContext>
             <local:TagDataViewModel />
         </Grid.DataContext>
@@ -23,14 +23,14 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0" Content="UID" HorizontalAlignment="Right" Margin="2" />
-        <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" 
+        <TextBox x:Name="txtUID" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" TabIndex="0"
                  Text="{Binding UID, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, 
                     ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
                  IsReadOnly="{Binding UID_ReadOnly}"
                  Background="{Binding UID_bgBrush}"
                  MinWidth="112" Margin="2" MaxLength="14" />
         <Label Grid.Column="0" Grid.Row="1" Content="Token ID" HorizontalAlignment="Right" Margin="2" />
-        <TextBox x:Name="txtID" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" 
+        <TextBox x:Name="txtID" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" TabIndex="1"
                  Text="{Binding TokenID, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                     ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
                  IsReadOnly="{Binding TokenID_ReadOnly}" 
@@ -39,35 +39,35 @@
                  PreviewTextInput="txtID_PreviewTextInput"
                   />
         <Label Grid.Column="0" Grid.Row="2" Content="35 (0x23)" HorizontalAlignment="Right" Margin="2" />
-        <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" 
+        <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" TabIndex="2"
                  Text="{Binding DataPage35, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                     ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
                  IsReadOnly="{Binding DataPage35_ReadOnly}" 
                  Background="{Binding DataPage35_bgBrush}"
                  MinWidth="70" Margin="2" MaxLength="8" />
         <Label Grid.Column="0" Grid.Row="3" Content="36 (0x24)" HorizontalAlignment="Right" Margin="2" />
-        <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" 
+        <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" TabIndex="3"
                  Text="{Binding DataPage36, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                     ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
                  IsReadOnly="{Binding DataPage36_ReadOnly}" 
                  Background="{Binding DataPage36_bgBrush}"
                  MinWidth="70" Margin="2" MaxLength="8" />
         <Label Grid.Column="0" Grid.Row="4" Content="37 (0x25)" HorizontalAlignment="Right" Margin="2" />
-        <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" 
+        <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" TabIndex="4"
                  Text="{Binding DataPage37, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                     ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
                  IsReadOnly="{Binding DataPage37_ReadOnly}" 
                  Background="{Binding DataPage37_bgBrush}"
                  MinWidth="70" Margin="2" MaxLength="8" />
         <Label Grid.Column="0" Grid.Row="5" Content="38 (0x26)" HorizontalAlignment="Right" Margin="2" />
-        <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" 
+        <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" TabIndex="5"
                  Text="{Binding DataPage38, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                     ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
                  IsReadOnly="{Binding DataPage38_ReadOnly}" 
                  Background="{Binding DataPage38_bgBrush}"
                  MinWidth="70" Margin="2" MaxLength="8" />
         <Label Grid.Column="0" Grid.Row="6" Content="43 (0x2B)" HorizontalAlignment="Right" Margin="2" />
-        <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" 
+        <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" TabIndex="6"
                  Text="{Binding DataPage43, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                     ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
                  IsReadOnly="{Binding DataPage43_ReadOnly}" 

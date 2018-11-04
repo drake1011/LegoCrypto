@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:LegoCrypto.WPF.App"
         mc:Ignorable="d"
         Title="LegoCrypto" Height="350" Width="250" MinHeight="310" MinWidth="160" MaxHeight="400" MaxWidth="300"
-        Icon="./Resources/L900032x166_256_32.ico">
+        Icon="./Resources/L900032x166_256_32.ico" >
     <Window.DataContext>
         <local:CryptoViewModel />
     </Window.DataContext>
@@ -18,8 +18,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <RadioButton Grid.Row="0" Content="Encrypt" Width="70" Height="30" Command="{Binding RadioChangeCmd}" IsChecked="{Binding Encrypt}" />
-            <RadioButton Grid.Row="0" Content="Decrypt" Width="70" Height="30" Command="{Binding RadioChangeCmd}" />
+            <RadioButton Grid.Row="0" Content="Encrypt" Width="70" Height="30" TabIndex="30"
+                         Command="{Binding RadioChangeCmd}" IsChecked="{Binding Encrypt}" />
+            <RadioButton Grid.Row="0" Content="Decrypt" Width="70" Height="30" TabIndex="31"
+                         Command="{Binding RadioChangeCmd}" />
         </WrapPanel>
         <local:TagDataView Grid.Row="1" x:Name="TagFields" TagData="{Binding TagData}" EditMode="{Binding EditModeProp}"
                            TokenID="{Binding TokenID}" 
@@ -30,7 +32,8 @@
                            DataPage38="{Binding DataPage38}"
                            DataPage43="{Binding DataPage43}"
                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                           FontSize="14" />
-        <Button Grid.Row="2" Content="Calculate" HorizontalAlignment="Center" Width="75" Command="{Binding CalculateCmd}" Margin="4" FontSize="14" />
+                           FontSize="14" TabIndex="0" />
+        <Button Grid.Row="2" Content="Calculate" HorizontalAlignment="Center" Width="75" 
+                Command="{Binding CalculateCmd}" Margin="4" FontSize="14" TabIndex="20" />
     </Grid>
 </Controls:MetroWindow>
