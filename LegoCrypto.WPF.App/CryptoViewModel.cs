@@ -1,5 +1,7 @@
 ﻿using LegoCrypto.Data.Model;
+using MahApps.Metro.Controls.Dialogs;
 using System;
+using System.Windows;
 
 namespace LegoCrypto.WPF.App
 {
@@ -61,21 +63,28 @@ namespace LegoCrypto.WPF.App
             TagData = TagFactory.CreateTag();
         }
 
-        public void Calculate()
+        public async void Calculate()
         {
-            ITag tag;
-            if (Encrypt)
+            try
             {
-                tag = TagFactory.CreateTag(TokenID ?? 0, UID);
-                tag.Encrypt();
-            }
-            else
-            {
-                tag = TagFactory.CreateTag(UID, DataPage35, DataPage36, DataPage37, DataPage38);
-                tag.Decrypt();
-            }
+                ITag tag;
+                if (Encrypt)
+                {
+                    tag = TagFactory.CreateTag(TokenID ?? 0, UID);
+                    tag.Encrypt();
+                }
+                else
+                {
+                    tag = TagFactory.CreateTag(UID, DataPage35, DataPage36, DataPage37, DataPage38);
+                    tag.Decrypt();
+                }
 
-            TagData = tag;
+                TagData = tag;
+            }
+            catch (Exception ex)
+            {
+                await ((MahApps.Metro.Controls.MetroWindow)Application.Current.MainWindow).ShowMessageAsync("Error", ex.Message);
+            }
         }
     }
 }
