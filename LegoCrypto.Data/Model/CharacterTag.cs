@@ -3,7 +3,7 @@ using LegoCrypto.Data.Crypto;
 
 namespace LegoCrypto.Data.Model
 {
-    public class CharacterTag : ITag
+    internal class CharacterTag : ITag
     {
         public uint? ID { get; private set; }
         public string UID { get; private set; }
@@ -32,14 +32,7 @@ namespace LegoCrypto.Data.Model
 
         public void Encrypt()
         {
-            if (ID == 0)
-                throw new Exception("ID not set");
-
-            if ((UID ?? string.Empty) == string.Empty)
-                throw new Exception("UID not set");
-
             var result = CharCrypto.Encrypt(UID, ID ?? 0);
-
             Pages[DataRegister.Page36] = result[0];
             Pages[DataRegister.Page37] = result[1];
             Pages[DataRegister.Page43] = CharCrypto.PWDGen(UID);

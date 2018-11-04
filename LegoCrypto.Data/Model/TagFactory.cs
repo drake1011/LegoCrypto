@@ -3,23 +3,28 @@ using System.Text;
 
 namespace LegoCrypto.Data.Model
 {
-    public static class TagFactory
+    public abstract class TagFactory
     {
+        private static readonly uint TokenCutoff = 1000;
+
         public static ITag CreateTag(uint id, string uid)
         {
-            if (id < 1000 && id > 0)
+            ValidateID(id);
+            ValidateUID(uid);
+
+            if (id < TokenCutoff)
                 return new CharacterTag(id, uid);
-            else if (id >= 1000)
+            else if (id >= TokenCutoff)
                 return new TokenTag(id, uid);
             else
-                throw new Exception("Error invalid ID");
+                throw new ArgumentException("Error invalid ID");
         }
+
+        public static ITagData CreateTag() => new BlankTag();
 
         public static ITag CreateTag(string data)
         {
-            if (data.Length != 46)
-                throw new ArgumentException(
-                    $"Not all data preset, Expecting UID and 4 register pages for a total of 46 characters, {data.Length} characters returned {Environment.NewLine}{data}");
+            ValidateDataString(data);
 
             return 
                 CreateTag(
@@ -33,20 +38,11 @@ namespace LegoCrypto.Data.Model
 
         public static ITag CreateTag(string uid, string dataPage35, string dataPage36, string dataPage37, string dataPage38)
         {
-            var sb = new StringBuilder();
-            if (uid?.Length != 14)
-                sb.AppendLine("UID not valid");
-            if(dataPage35?.Length != 8)
-                sb.AppendLine("DataPage35 not valid");
-            if (dataPage36?.Length != 8)
-                sb.AppendLine("DataPage36 not valid");
-            if (dataPage37?.Length != 8)
-                sb.AppendLine("DataPage37 not valid");
-            if (dataPage38?.Length != 8)
-                sb.AppendLine("DataPage38 not valid");
-
-            if (sb.Length > 0)
-                throw new ArgumentException(sb.ToString());
+            ValidateUID(uid);
+            ValidateDataPage(dataPage35);
+            ValidateDataPage(dataPage36);
+            ValidateDataPage(dataPage37);
+            ValidateDataPage(dataPage38);
 
             var pages = new DataRegisterCollection();
 
@@ -62,5 +58,40 @@ namespace LegoCrypto.Data.Model
             else
                 throw new Exception("Incorrect token type detected");
         }
+
+        #region Validation
+
+        private static bool ValidateDataString(string data)
+        {
+            if (data.Length != 46)
+                throw new ArgumentException(
+                    $"Not all data preset, Expecting UID and 4 register pages for a total of 46 characters, {data.Length} characters returned {Environment.NewLine}{data}");
+            return true;
+        }
+
+        private static bool ValidateID(uint? id)
+        {
+            if ((id ?? 0) == 0)
+                throw new ArgumentException("ID not set");
+            return true;
+        }
+
+        private static bool ValidateUID(string uid)
+        {
+            if ((uid ?? string.Empty) == string.Empty)
+                throw new ArgumentException("UID not set");
+            if (uid?.Length != 14)
+                throw new ArgumentException("UID not 14 characters");
+            return true;
+        }
+
+        public static bool ValidateDataPage(string data)
+        {
+            if(data?.Length != 8)
+                throw new ArgumentException("Data Page not valid");
+            return true;
+        }
+
+        #endregion
     }
 }

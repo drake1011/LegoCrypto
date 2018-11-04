@@ -58,7 +58,7 @@ namespace LegoCrypto.WPF.App
         public void HandleRadioChange()
         {
             EditModeProp = Encrypt ? EditMode.Encrypt : EditMode.Decrypt;
-            TagData = new BlankTag();
+            TagData = TagFactory.CreateTag();
         }
 
         public void Calculate()

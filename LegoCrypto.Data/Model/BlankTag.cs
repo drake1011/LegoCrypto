@@ -1,7 +1,7 @@
 ﻿
 namespace LegoCrypto.Data.Model
 {
-    public class BlankTag : ITagData
+    internal class BlankTag : ITagData
     {
         public uint? ID { get; private set; }
         public string UID { get; private set; }
