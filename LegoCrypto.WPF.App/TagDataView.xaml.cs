@@ -57,9 +57,15 @@ namespace LegoCrypto.WPF.App
                 {
                     return _invalidHex;
                 }
-                else if (columnName == "DataPage38" && DataPage38?.Length > 0 && !Bitwise.ContainsOnlyHexNibbles(DataPage38))
+                else if (columnName == "DataPage38" && DataPage38?.Length > 0)
                 {
-                    return _invalidHex;
+                    if(!Bitwise.ContainsOnlyHexNibbles(DataPage38))
+                        return _invalidHex;
+                    if(DataPage38?.Length == 8)
+                    {
+                        if (DataPage38 != PageConstants.CharacterType && DataPage38 != PageConstants.TokenType)
+                            return "Invalid Token Type";
+                    }
                 }
                 else if (columnName == "DataPage43" && DataPage43?.Length > 0 && !Bitwise.ContainsOnlyHexNibbles(DataPage43))
                 {
