@@ -19,11 +19,11 @@ namespace LegoCrypto.WPF.App
         public void RaiseCanExecuteChanged() => CanExecuteChanged(this, EventArgs.Empty);
         #region ICommand Members
 
-        bool ICommand.CanExecute(object parameter) => _TargetCanExecuteMethod != null ? _TargetCanExecuteMethod() : _TargetExecuteMethod != null ? true : false;
+        public bool CanExecute(object parameter) => _TargetCanExecuteMethod != null ? _TargetCanExecuteMethod() : _TargetExecuteMethod != null ? true : false;
 
         public event EventHandler CanExecuteChanged = delegate { };
 
-        void ICommand.Execute(object parameter) => _TargetExecuteMethod?.Invoke();
+        public void Execute(object parameter) => _TargetExecuteMethod?.Invoke();
         #endregion
     }
 
@@ -43,7 +43,7 @@ namespace LegoCrypto.WPF.App
         public void RaiseCanExecuteChanged() => CanExecuteChanged(this, EventArgs.Empty);
         #region ICommand Members
 
-        bool ICommand.CanExecute(object parameter)
+        public bool CanExecute(object parameter)
         {
             if (_TargetCanExecuteMethod != null)
             {
@@ -55,7 +55,7 @@ namespace LegoCrypto.WPF.App
 
         public event EventHandler CanExecuteChanged = delegate { };
 
-        void ICommand.Execute(object parameter) => _TargetExecuteMethod?.Invoke((T)parameter);
+        public void Execute(object parameter) => _TargetExecuteMethod?.Invoke((T)parameter);
         #endregion
     }
 }

@@ -176,7 +176,7 @@ namespace LegoCrypto.WPF.App
                 new PropertyMetadata(null, (d, e) => ((TagDataView)d)._vm.DefaultBGBrush = (Brush)e.NewValue));
         #endregion
 
-        private void txtID_PreviewTextInput(object sender, TextCompositionEventArgs e) => e.Handled = !uint.TryParse(e.Text, out uint result);
+        private void TxtID_PreviewTextInput(object sender, TextCompositionEventArgs e) => e.Handled = !uint.TryParse(e.Text, out uint result);
 
         private void OnPaste(object sender, DataObjectPastingEventArgs e)
         {
