@@ -70,7 +70,7 @@ namespace LegoCrypto.WPF.App
                 ITag tag;
                 if (Encrypt)
                 {
-                    tag = TagFactory.CreateTag(TokenID ?? 0, UID);
+                    tag = TagFactory.CreateTag(TokenID, UID);
                     tag.Encrypt();
                 }
                 else

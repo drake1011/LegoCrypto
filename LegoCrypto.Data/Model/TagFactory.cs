@@ -10,8 +10,8 @@ namespace LegoCrypto.Data.Model
 
         public static ITag CreateTag(uint? id, string uid)
         {
-            ValidateID(id);
             ValidateUID(uid);
+            ValidateID(id);
 
             if (id < TokenCutoff)
                 return new CharacterTag((uint)id, uid);
