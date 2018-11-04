@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 
 namespace LegoCrypto.Data.Crypto
 {
     //todo incorporate some index bounds exception of some sort
     public static class Bitwise
     {
+        private const string _hexNibbles = "0123456789abcdefABCDEF";
+
         // var rotr32 = (a,b)=>((a>>>b)|(a<<(32-b))) >>> 0
         public static uint Rotr32(uint word, int shift)
         {
@@ -184,5 +187,7 @@ namespace LegoCrypto.Data.Crypto
             }
             return sTemp;
         }
+
+        public static bool ContainsOnlyHexNibbles(string value) => value.All(_hexNibbles.Contains);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LegoCrypto.Data.Model;
+using LegoCrypto.Data.Crypto;
 
 namespace LegoCrypto.Tests
 {
@@ -28,6 +29,9 @@ namespace LegoCrypto.Tests
 
         private const string _charTagImpl = "CharacterTag";
         private const string _tokenTagImpl = "TokenTag";
+
+        private const string _uid_invalid = "04F4E7BADC4C8Z";
+        private const string _data_invalid = "000N0000";
 
         [TestMethod]
         public void Test_CreateTag_Character_id_uid_Pass()
@@ -300,17 +304,50 @@ namespace LegoCrypto.Tests
         [TestMethod]
         public void Test_CreateTag_validate_Invalid_Hex_UID_Fail()
         {
-            const string uidInvalid = "04F4E7BADC4C8Z";
-            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(id: _char_id, uid: uidInvalid));
+            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(id: _char_id, uid: _uid_invalid));
         }
 
         [TestMethod]
         public void Test_CreateTag_validate_Invalid_Hex_data_Fail()
         {
-            const string uidInvalid = "04F4E7BADC4C8Z";
-            const string dataInvalid = "000N0000";
-            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(data: _uid + _char_page35 + dataInvalid + _char_page37 + _char_page38));
-            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(data: uidInvalid + _char_page35 + _char_page36 + _char_page37 + _char_page38));
+            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(data: _uid + _char_page35 + _data_invalid + _char_page37 + _char_page38));
+            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(data: _uid_invalid + _char_page35 + _char_page36 + _char_page37 + _char_page38));
+        }
+
+        [TestMethod]
+        public void Test_Bitwise_validate_Hex_PassFail()
+        {
+            const string hexValid = "A";
+            const string hexValid2 = "FF";
+            const string hexInvalid = "0Z";
+            const string hexInvalid2 = "AG";
+
+            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(_char_page35));
+            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(_char_page36));
+            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(_uid));
+            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(hexValid));
+            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(hexValid2));
+            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(_uid + hexValid));
+
+            Assert.IsFalse(Bitwise.ContainsOnlyHexNibbles(hexInvalid));
+            Assert.IsFalse(Bitwise.ContainsOnlyHexNibbles(hexInvalid2));
+            Assert.IsFalse(Bitwise.ContainsOnlyHexNibbles(_uid + hexInvalid));
+            Assert.IsFalse(Bitwise.ContainsOnlyHexNibbles(_char_page35 + hexInvalid2));
+        }
+
+        [TestMethod]
+        public void Test_Bitwise_validate_ConvertHexStringToByteArray_Fail()
+        {
+            Assert.ThrowsException<FormatException>(() => Bitwise.ConvertHexStringToByteArray(hexString: _uid_invalid));
+            Assert.ThrowsException<FormatException>(() => Bitwise.ConvertHexStringToByteArray(hexString: _data_invalid));
+        }
+
+        [TestMethod]
+        public void Test_Bitwise_validate_ConvertHexStringToByteArray_Pass()
+        {
+            var buffer = Bitwise.ConvertHexStringToByteArray(hexString: _uid);
+            var uid = Bitwise.ConvertByteArrayToHexString(byteArray: buffer);
+            Assert.AreEqual(uid, _uid);
         }
     }
 }

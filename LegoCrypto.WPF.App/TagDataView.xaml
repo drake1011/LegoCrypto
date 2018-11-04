@@ -23,38 +23,52 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0" Content="UID" HorizontalAlignment="Right" Margin="2" />
-        <TextBox x:Name="txtUID" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" 
-                 Text="{Binding UID, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" IsReadOnly="{Binding UID_ReadOnly}"
+        <TextBox Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" 
+                 Text="{Binding UID, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, 
+                    ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
+                 IsReadOnly="{Binding UID_ReadOnly}"
                  Background="{Binding UID_bgBrush}"
                  MinWidth="112" Margin="2" MaxLength="14" />
         <Label Grid.Column="0" Grid.Row="1" Content="Token ID" HorizontalAlignment="Right" Margin="2" />
         <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" 
-                 Text="{Binding TokenID, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" IsReadOnly="{Binding TokenID_ReadOnly}" 
+                 Text="{Binding TokenID, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                    ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
+                 IsReadOnly="{Binding TokenID_ReadOnly}" 
                  Background="{Binding TokenID_bgBrush}"
                  MinWidth="38" Margin="2" MaxLength="6" />
         <Label Grid.Column="0" Grid.Row="2" Content="35 (0x23)" HorizontalAlignment="Right" Margin="2" />
         <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" 
-                 Text="{Binding DataPage35, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" IsReadOnly="{Binding DataPage35_ReadOnly}" 
+                 Text="{Binding DataPage35, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                    ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
+                 IsReadOnly="{Binding DataPage35_ReadOnly}" 
                  Background="{Binding DataPage35_bgBrush}"
                  MinWidth="70" Margin="2" MaxLength="8" />
         <Label Grid.Column="0" Grid.Row="3" Content="36 (0x24)" HorizontalAlignment="Right" Margin="2" />
         <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" 
-                 Text="{Binding DataPage36, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" IsReadOnly="{Binding DataPage36_ReadOnly}" 
+                 Text="{Binding DataPage36, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                    ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
+                 IsReadOnly="{Binding DataPage36_ReadOnly}" 
                  Background="{Binding DataPage36_bgBrush}"
                  MinWidth="70" Margin="2" MaxLength="8" />
         <Label Grid.Column="0" Grid.Row="4" Content="37 (0x25)" HorizontalAlignment="Right" Margin="2" />
         <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" 
-                 Text="{Binding DataPage37, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" IsReadOnly="{Binding DataPage37_ReadOnly}" 
+                 Text="{Binding DataPage37, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                    ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
+                 IsReadOnly="{Binding DataPage37_ReadOnly}" 
                  Background="{Binding DataPage37_bgBrush}"
                  MinWidth="70" Margin="2" MaxLength="8" />
         <Label Grid.Column="0" Grid.Row="5" Content="38 (0x26)" HorizontalAlignment="Right" Margin="2" />
         <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" 
-                 Text="{Binding DataPage38, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" IsReadOnly="{Binding DataPage38_ReadOnly}" 
+                 Text="{Binding DataPage38, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                    ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
+                 IsReadOnly="{Binding DataPage38_ReadOnly}" 
                  Background="{Binding DataPage38_bgBrush}"
                  MinWidth="70" Margin="2" MaxLength="8" />
         <Label Grid.Column="0" Grid.Row="6" Content="43 (0x2B)" HorizontalAlignment="Right" Margin="2" />
         <TextBox Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" 
-                 Text="{Binding DataPage43, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" IsReadOnly="{Binding DataPage43_ReadOnly}" 
+                 Text="{Binding DataPage43, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                    ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
+                 IsReadOnly="{Binding DataPage43_ReadOnly}" 
                  Background="{Binding DataPage43_bgBrush}"
                  MinWidth="70" Margin="2" MaxLength="8" />
     </Grid>

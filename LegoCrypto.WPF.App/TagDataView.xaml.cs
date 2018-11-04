@@ -1,5 +1,7 @@
-﻿using LegoCrypto.Data.Model;
+﻿using LegoCrypto.Data.Crypto;
+using LegoCrypto.Data.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -21,13 +23,49 @@ namespace LegoCrypto.WPF.App
     /// <summary>
     /// Interaction logic for TagDataView.xaml
     /// </summary>
-    public partial class TagDataView : UserControl
+    public partial class TagDataView : UserControl, IDataErrorInfo
     {
+        private readonly string _invalidHex = "Invalid Hex String";
+
         private TagDataViewModel _vm;
         public TagDataView()
         {
             InitializeComponent();
             _vm = root.DataContext as TagDataViewModel;
+        }
+
+        public string Error { get { return string.Empty; } }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "UID" && UID?.Length > 0 && !Bitwise.ContainsOnlyHexNibbles(UID))
+                {
+                    return _invalidHex;
+                }
+                else if (columnName == "DataPage35" && DataPage35?.Length > 0 && !Bitwise.ContainsOnlyHexNibbles(DataPage35))
+                {
+                    return _invalidHex;
+                }
+                else if (columnName == "DataPage36" && DataPage36?.Length > 0 && !Bitwise.ContainsOnlyHexNibbles(DataPage36))
+                {
+                    return _invalidHex;
+                }
+                else if (columnName == "DataPage37" && DataPage37?.Length > 0 && !Bitwise.ContainsOnlyHexNibbles(DataPage37))
+                {
+                    return _invalidHex;
+                }
+                else if (columnName == "DataPage38" && DataPage38?.Length > 0 && !Bitwise.ContainsOnlyHexNibbles(DataPage38))
+                {
+                    return _invalidHex;
+                }
+                else if (columnName == "DataPage43" && DataPage43?.Length > 0 && !Bitwise.ContainsOnlyHexNibbles(DataPage43))
+                {
+                    return _invalidHex;
+                }
+                return null;
+            }
         }
 
         public string UID { get => (string)GetValue(UIDProperty); set { SetValue(UIDProperty, value); } }
@@ -126,7 +164,6 @@ namespace LegoCrypto.WPF.App
             DependencyProperty.Register("TextBoxDefaultBGBrush",
                 typeof(Brush), typeof(TagDataView),
                 new PropertyMetadata(null, (d, e) => ((TagDataView)d)._vm.DefaultBGBrush = (Brush)e.NewValue));
-
     }
 
     public enum EditMode

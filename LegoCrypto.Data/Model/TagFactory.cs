@@ -8,15 +8,15 @@ namespace LegoCrypto.Data.Model
     {
         private static readonly uint TokenCutoff = 1000;
 
-        public static ITag CreateTag(uint id, string uid)
+        public static ITag CreateTag(uint? id, string uid)
         {
             ValidateID(id);
             ValidateUID(uid);
 
             if (id < TokenCutoff)
-                return new CharacterTag(id, uid);
+                return new CharacterTag((uint)id, uid);
             else if (id >= TokenCutoff)
-                return new TokenTag(id, uid);
+                return new TokenTag((uint)id, uid);
             else
                 throw new ArgumentException("Error invalid ID");
         }
