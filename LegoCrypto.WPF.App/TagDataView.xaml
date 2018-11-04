@@ -30,12 +30,14 @@
                  Background="{Binding UID_bgBrush}"
                  MinWidth="112" Margin="2" MaxLength="14" />
         <Label Grid.Column="0" Grid.Row="1" Content="Token ID" HorizontalAlignment="Right" Margin="2" />
-        <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" 
+        <TextBox x:Name="txtID" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" 
                  Text="{Binding TokenID, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                     ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True}" 
                  IsReadOnly="{Binding TokenID_ReadOnly}" 
                  Background="{Binding TokenID_bgBrush}"
-                 MinWidth="38" Margin="2" MaxLength="6" />
+                 MinWidth="38" Margin="2" MaxLength="6" 
+                 PreviewTextInput="txtID_PreviewTextInput"
+                  />
         <Label Grid.Column="0" Grid.Row="2" Content="35 (0x23)" HorizontalAlignment="Right" Margin="2" />
         <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" 
                  Text="{Binding DataPage35, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},

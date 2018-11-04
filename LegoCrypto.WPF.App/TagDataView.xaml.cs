@@ -164,6 +164,8 @@ namespace LegoCrypto.WPF.App
             DependencyProperty.Register("TextBoxDefaultBGBrush",
                 typeof(Brush), typeof(TagDataView),
                 new PropertyMetadata(null, (d, e) => ((TagDataView)d)._vm.DefaultBGBrush = (Brush)e.NewValue));
+
+        private void txtID_PreviewTextInput(object sender, TextCompositionEventArgs e) => e.Handled = !int.TryParse(e.Text, out int result);
     }
 
     public enum EditMode
