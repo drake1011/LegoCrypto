@@ -112,6 +112,21 @@ namespace LegoCrypto.WPF.App
             DependencyProperty.Register("EditMode",
                 typeof(EditMode), typeof(TagDataView),
                 new PropertyMetadata(EditMode.FullEdit, (d, e) => ((TagDataView)d)._vm.EditMode = (EditMode)e.NewValue));
+
+        public Brush TextBoxReadOnlyBGBrush { get => (Brush)GetValue(ReadOnlyBackgroundBrushProperty); set => SetValue(ReadOnlyBackgroundBrushProperty, value); }
+
+        public static readonly DependencyProperty ReadOnlyBackgroundBrushProperty =
+            DependencyProperty.Register("TextBoxReadOnlyBGBrush",
+                typeof(Brush), typeof(TagDataView),
+                new PropertyMetadata(null, (d, e) => ((TagDataView)d)._vm.ReadOnlyBGBrush = (Brush)e.NewValue));
+
+        public Brush TextBoxDefaultBGBrush { get => (Brush)GetValue(DefaultBackgroundBrushProperty); set => SetValue(DefaultBackgroundBrushProperty, value); }
+
+        public static readonly DependencyProperty DefaultBackgroundBrushProperty =
+            DependencyProperty.Register("TextBoxDefaultBGBrush",
+                typeof(Brush), typeof(TagDataView),
+                new PropertyMetadata(null, (d, e) => ((TagDataView)d)._vm.DefaultBGBrush = (Brush)e.NewValue));
+
     }
 
     public enum EditMode
