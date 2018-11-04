@@ -158,10 +158,18 @@ namespace LegoCrypto.Data.Crypto
             }
 
             byte[] HexAsBytes = new byte[hexString.Length / 2];
-            for (int index = 0; index < HexAsBytes.Length; index++)
+            string byteValue = string.Empty;
+            try
             {
-                string byteValue = hexString.Substring(index * 2, 2);
-                HexAsBytes[index] = byte.Parse(byteValue, NumberStyles.HexNumber);
+                for (int index = 0; index < HexAsBytes.Length; index++)
+                {
+                    byteValue = hexString.Substring(index * 2, 2);
+                    HexAsBytes[index] = byte.Parse(byteValue, NumberStyles.HexNumber);
+                }
+            }
+            catch (FormatException fex)
+            {
+                throw new FormatException($"{fex.Message} Invalid Hex value: {byteValue}", fex);
             }
 
             return HexAsBytes;

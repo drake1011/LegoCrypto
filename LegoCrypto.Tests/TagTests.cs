@@ -296,5 +296,21 @@ namespace LegoCrypto.Tests
                 ));
             #endregion
         }
+
+        [TestMethod]
+        public void Test_CreateTag_validate_Invalid_Hex_UID_Fail()
+        {
+            const string uidInvalid = "04F4E7BADC4C8Z";
+            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(id: _char_id, uid: uidInvalid));
+        }
+
+        [TestMethod]
+        public void Test_CreateTag_validate_Invalid_Hex_data_Fail()
+        {
+            const string uidInvalid = "04F4E7BADC4C8Z";
+            const string dataInvalid = "000N0000";
+            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(data: _uid + _char_page35 + dataInvalid + _char_page37 + _char_page38));
+            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(data: uidInvalid + _char_page35 + _char_page36 + _char_page37 + _char_page38));
+        }
     }
 }
