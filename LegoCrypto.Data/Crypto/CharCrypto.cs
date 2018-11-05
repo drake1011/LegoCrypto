@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using SysLib.Bitwise;
 
 namespace LegoCrypto.Data.Crypto
 {

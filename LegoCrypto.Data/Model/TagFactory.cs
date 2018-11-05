@@ -1,6 +1,5 @@
-﻿using LegoCrypto.Data.Crypto;
-using System;
-using System.Text;
+﻿using System;
+using SysLib.Bitwise;
 
 namespace LegoCrypto.Data.Model
 {

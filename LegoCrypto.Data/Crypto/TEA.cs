@@ -1,4 +1,6 @@
-﻿namespace LegoCrypto.Data.Crypto
+﻿using SysLib.Bitwise;
+
+namespace LegoCrypto.Data.Crypto
 {
     public static class TEA
     {

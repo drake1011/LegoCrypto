@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bitwise, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SysLib.Bitwise.1.0.0\lib\netstandard2.0\Bitwise.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Crypto\Bitwise.cs" />
     <Compile Include="Model\BlankTag.cs" />
     <Compile Include="Model\DataRegister.cs" />
     <Compile Include="Model\CharacterTag.cs" />
@@ -53,6 +55,8 @@
     <Compile Include="Model\TagFactory.cs" />
     <Compile Include="Crypto\TEA.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

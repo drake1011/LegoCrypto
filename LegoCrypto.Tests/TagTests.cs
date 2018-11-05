@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LegoCrypto.Data.Model;
-using LegoCrypto.Data.Crypto;
+using LegoCrypto.Data;
+using SysLib.Bitwise;
 
 namespace LegoCrypto.Tests
 {
