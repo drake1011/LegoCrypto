@@ -42,25 +42,25 @@ namespace LegoCrypto.WPF.App
         {
             get
             {
-                if (columnName == "UID" && UID?.Length > 0 && !HexConverter.ContainsOnlyHexNibbles(UID))
+                if (columnName == "UID" && UID?.Length > 0 && !UID.HasValidHexChars())
                 {
                     return _invalidHex;
                 }
-                else if (columnName == "DataPage35" && DataPage35?.Length > 0 && !HexConverter.ContainsOnlyHexNibbles(DataPage35))
+                else if (columnName == "DataPage35" && DataPage35?.Length > 0 && !DataPage35.HasValidHexChars())
                 {
                     return _invalidHex;
                 }
-                else if (columnName == "DataPage36" && DataPage36?.Length > 0 && !HexConverter.ContainsOnlyHexNibbles(DataPage36))
+                else if (columnName == "DataPage36" && DataPage36?.Length > 0 && !DataPage36.HasValidHexChars())
                 {
                     return _invalidHex;
                 }
-                else if (columnName == "DataPage37" && DataPage37?.Length > 0 && !HexConverter.ContainsOnlyHexNibbles(DataPage37))
+                else if (columnName == "DataPage37" && DataPage37?.Length > 0 && !DataPage37.HasValidHexChars())
                 {
                     return _invalidHex;
                 }
                 else if (columnName == "DataPage38" && DataPage38?.Length > 0)
                 {
-                    if(!HexConverter.ContainsOnlyHexNibbles(DataPage38))
+                    if(!DataPage38.HasValidHexChars())
                         return _invalidHex;
                     if(DataPage38?.Length == 8)
                     {
@@ -68,7 +68,7 @@ namespace LegoCrypto.WPF.App
                             return "Invalid Token Type";
                     }
                 }
-                else if (columnName == "DataPage43" && DataPage43?.Length > 0 && !HexConverter.ContainsOnlyHexNibbles(DataPage43))
+                else if (columnName == "DataPage43" && DataPage43?.Length > 0 && !DataPage43.HasValidHexChars())
                 {
                     return _invalidHex;
                 }

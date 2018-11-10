@@ -13,10 +13,10 @@ namespace LegoCrypto.Data.Crypto
 
         private static void SetKey(byte[] key)
         {
-            k0 = ByteConverter.LE_To_UInt32(key, 0);
-            k1 = ByteConverter.LE_To_UInt32(key, 4);
-            k2 = ByteConverter.LE_To_UInt32(key, 8);
-            k3 = ByteConverter.LE_To_UInt32(key, 12);
+            k0 = key.ToUint(0);
+            k1 = key.ToUint(4);
+            k2 = key.ToUint(8);
+            k3 = key.ToUint(12);
         }
 
         public static uint[] Encipher(uint[] v, byte[] key)

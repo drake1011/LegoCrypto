@@ -18,12 +18,6 @@ namespace LegoCrypto.Data.Crypto
                 0x23, 0xe9, 0xfe, 0xaa
             };
 
-        //public CharCrypto(string uid)
-        //{
-        //    sUID = uid;
-        //    Key = genkeybytes(sUID); 
-        //}
-
         private static byte[] Genkeybytes(string uid)
         {
             byte[] buffer = new byte[16];
@@ -36,46 +30,30 @@ namespace LegoCrypto.Data.Crypto
 
         public static string PWDGen(string uid)
         {
-            byte[] buff = Encoding.ASCII.GetBytes(PWDBase);
-            buff[30] = buff[31] = 0xAA;
-
-            return HexConverter.BytesToHex(ScrambleByte(uid, 8, buff));
+            var buffer = Encoding.ASCII.GetBytes(PWDBase);
+            buffer[30] = buffer[31] = 0xAA;
+            return ScrambleByte(uid, 8, buffer).ToHex();
         }
 
         public static string[] Encrypt(string uid, uint charId)
         {
-            //if (Key == null) throw new Exception("Key not set!");
-
             var data = TEA.Encipher(new uint[] { charId, charId }, Genkeybytes(uid));
-
-            // Get bytes in LE (reverse uint bytes)
-            byte[] b = BitConverter.GetBytes(data[0]);
-            byte[] b2 = BitConverter.GetBytes(data[1]);
-
-            string s1 = HexConverter.BytesToHex(b);
-            string s2 = HexConverter.BytesToHex(b2);
-
-            return new string[] { s1, s2 };
+            var b = data[0].ToBytes();
+            var b2 = data[1].ToBytes();
+            return new string[] { b.ToHex(), b2.ToHex() };
         }
 
         public static uint Decrypt(string uid, string raw)
         {
-            //if (Key == null) throw new Exception("Key not set!");
-
-            byte[] Buff = new byte[8];
-
-            Buff = HexConverter.HexToBytes(raw);
-
-            uint d1 = ByteConverter.LE_To_UInt32(Buff, 0);
-            uint d2 = ByteConverter.LE_To_UInt32(Buff, 4);
-
+            var buffer = raw.ToBytes();
+            var d1 = buffer.ToUint(0);
+            var d2 = buffer.ToUint(4);
             return (TEA.Decipher(new uint[] { d1, d2 }, Genkeybytes(uid))[0]);
         }
 
         private static byte[] ScrambleByte(string uid, int cnt, byte[] baseBuff)
         {
-            var uidArray = HexConverter.HexToBytes(uid);
-            uidArray.CopyTo(baseBuff, 0);
+            uid.ToBytes().CopyTo(baseBuff, 0);
             baseBuff[(cnt * 4) - 1] = 0xaa;
 
             uint v2 = 0;
@@ -83,28 +61,21 @@ namespace LegoCrypto.Data.Crypto
             {
                 var v4 = ByteConverter.Rotr32(v2, 25);
                 var v5 = ByteConverter.Rotr32(v2, 10);
-                var b = ByteConverter.LE_To_UInt32(baseBuff, i * 4);
+                var b = baseBuff.ToUint( i * 4);
 
                 v2 = (b + v4 + v5 - v2) >> 0;
             }
-
-            byte[] returnbuff = new byte[4];
-            ByteConverter.UInt32_To_LE(v2, returnbuff);
-            return returnbuff;
+            return v2.ToBytes();
         }
 
         public static string ReturnTokenHex(uint charId)
         {
-            byte[] buff = new byte[4];
-
-            ByteConverter.UInt32_To_LE(charId, buff);
-
-            return HexConverter.BytesToHex(buff);
+            return HexConverter.BytesToHex(charId.ToBytes());
         }
 
         public static uint ReturnTokenUint(string tokenHex)
         {
-            return ByteConverter.LE_To_UInt32(HexConverter.HexToBytes(tokenHex));
+            return tokenHex.ToBytes().ToUint();
         }
     }
 }
