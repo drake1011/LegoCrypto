@@ -4,7 +4,7 @@ using SysLib.Bitwise;
 
 namespace LegoCrypto.Data.Crypto
 {
-    public static class CharCrypto
+    internal static class CharCrypto
     {
         private const string PWDBase = "UUUUUUU(c) Copyright LEGO 2014AA";
 
@@ -28,14 +28,14 @@ namespace LegoCrypto.Data.Crypto
             return buffer;
         }
 
-        public static string PWDGen(string uid)
+        internal static string PWDGen(string uid)
         {
             var buffer = Encoding.ASCII.GetBytes(PWDBase);
             buffer[30] = buffer[31] = 0xAA;
             return ScrambleByte(uid, 8, buffer).ToHex();
         }
 
-        public static string[] Encrypt(string uid, uint charId)
+        internal static string[] Encrypt(string uid, uint charId)
         {
             var data = TEA.Encipher(new uint[] { charId, charId }, Genkeybytes(uid));
             var b = data[0].ToBytes();
@@ -43,7 +43,7 @@ namespace LegoCrypto.Data.Crypto
             return new string[] { b.ToHex(), b2.ToHex() };
         }
 
-        public static uint Decrypt(string uid, string raw)
+        internal static uint Decrypt(string uid, string raw)
         {
             var buffer = raw.ToBytes();
             var d1 = buffer.ToUint(0);
@@ -68,12 +68,12 @@ namespace LegoCrypto.Data.Crypto
             return v2.ToBytes();
         }
 
-        public static string ReturnTokenHex(uint charId)
+        internal static string ReturnTokenHex(uint charId)
         {
             return HexConverter.BytesToHex(charId.ToBytes());
         }
 
-        public static uint ReturnTokenUint(string tokenHex)
+        internal static uint ReturnTokenUint(string tokenHex)
         {
             return tokenHex.ToBytes().ToUint();
         }
