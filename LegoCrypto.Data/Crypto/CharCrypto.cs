@@ -39,7 +39,7 @@ namespace LegoCrypto.Data.Crypto
             byte[] buff = Encoding.ASCII.GetBytes(PWDBase);
             buff[30] = buff[31] = 0xAA;
 
-            return Bitwise.ConvertByteArrayToHexString(ScrambleByte(uid, 8, buff));
+            return HexConverter.BytesToHex(ScrambleByte(uid, 8, buff));
         }
 
         public static string[] Encrypt(string uid, uint charId)
@@ -52,8 +52,8 @@ namespace LegoCrypto.Data.Crypto
             byte[] b = BitConverter.GetBytes(data[0]);
             byte[] b2 = BitConverter.GetBytes(data[1]);
 
-            string s1 = Bitwise.ConvertByteArrayToHexString(b);
-            string s2 = Bitwise.ConvertByteArrayToHexString(b2);
+            string s1 = HexConverter.BytesToHex(b);
+            string s2 = HexConverter.BytesToHex(b2);
 
             return new string[] { s1, s2 };
         }
@@ -64,32 +64,32 @@ namespace LegoCrypto.Data.Crypto
 
             byte[] Buff = new byte[8];
 
-            Buff = Bitwise.ConvertHexStringToByteArray(raw);
+            Buff = HexConverter.HexToBytes(raw);
 
-            uint d1 = Bitwise.LE_To_UInt32(Buff, 0);
-            uint d2 = Bitwise.LE_To_UInt32(Buff, 4);
+            uint d1 = ByteConverter.LE_To_UInt32(Buff, 0);
+            uint d2 = ByteConverter.LE_To_UInt32(Buff, 4);
 
             return (TEA.Decipher(new uint[] { d1, d2 }, Genkeybytes(uid))[0]);
         }
 
         private static byte[] ScrambleByte(string uid, int cnt, byte[] baseBuff)
         {
-            var uidArray = Bitwise.ConvertHexStringToByteArray(uid);
+            var uidArray = HexConverter.HexToBytes(uid);
             uidArray.CopyTo(baseBuff, 0);
             baseBuff[(cnt * 4) - 1] = 0xaa;
 
             uint v2 = 0;
             for (var i = 0; i < cnt; i++)
             {
-                var v4 = Bitwise.Rotr32(v2, 25);
-                var v5 = Bitwise.Rotr32(v2, 10);
-                var b = Bitwise.LE_To_UInt32(baseBuff, i * 4);
+                var v4 = ByteConverter.Rotr32(v2, 25);
+                var v5 = ByteConverter.Rotr32(v2, 10);
+                var b = ByteConverter.LE_To_UInt32(baseBuff, i * 4);
 
                 v2 = (b + v4 + v5 - v2) >> 0;
             }
 
             byte[] returnbuff = new byte[4];
-            Bitwise.UInt32_To_LE(v2, returnbuff);
+            ByteConverter.UInt32_To_LE(v2, returnbuff);
             return returnbuff;
         }
 
@@ -97,14 +97,14 @@ namespace LegoCrypto.Data.Crypto
         {
             byte[] buff = new byte[4];
 
-            Bitwise.UInt32_To_LE(charId, buff);
+            ByteConverter.UInt32_To_LE(charId, buff);
 
-            return Bitwise.ConvertByteArrayToHexString(buff);
+            return HexConverter.BytesToHex(buff);
         }
 
         public static uint ReturnTokenUint(string tokenHex)
         {
-            return Bitwise.LE_To_UInt32(Bitwise.ConvertHexStringToByteArray(tokenHex));
+            return ByteConverter.LE_To_UInt32(HexConverter.HexToBytes(tokenHex));
         }
     }
 }

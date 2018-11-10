@@ -82,7 +82,7 @@ namespace LegoCrypto.Data.Model
                 throw new ArgumentException("UID not set");
             if (uid?.Length != 14)
                 throw new ArgumentException("UID not 14 characters");
-            Bitwise.ConvertHexStringToByteArray(uid);
+            HexConverter.HexToBytes(uid);
             return true;
         }
 
@@ -90,7 +90,7 @@ namespace LegoCrypto.Data.Model
         {
             if(data?.Length != 8)
                 throw new ArgumentException("Data Page not valid");
-            Bitwise.ConvertHexStringToByteArray(data);
+            HexConverter.HexToBytes(data);
             return true;
         }
 

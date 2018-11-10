@@ -305,14 +305,14 @@ namespace LegoCrypto.Tests
         [TestMethod]
         public void Test_CreateTag_validate_Invalid_Hex_UID_Fail()
         {
-            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(id: _char_id, uid: _uid_invalid));
+            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(id: _char_id, uid: _uid_invalid));
         }
 
         [TestMethod]
         public void Test_CreateTag_validate_Invalid_Hex_data_Fail()
         {
-            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(data: _uid + _char_page35 + _data_invalid + _char_page37 + _char_page38));
-            Assert.ThrowsException<FormatException>(() => TagFactory.CreateTag(data: _uid_invalid + _char_page35 + _char_page36 + _char_page37 + _char_page38));
+            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(data: _uid + _char_page35 + _data_invalid + _char_page37 + _char_page38));
+            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(data: _uid_invalid + _char_page35 + _char_page36 + _char_page37 + _char_page38));
         }
 
         [TestMethod]
@@ -323,31 +323,31 @@ namespace LegoCrypto.Tests
             const string hexInvalid = "0Z";
             const string hexInvalid2 = "AG";
 
-            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(_char_page35));
-            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(_char_page36));
-            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(_uid));
-            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(hexValid));
-            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(hexValid2));
-            Assert.IsTrue(Bitwise.ContainsOnlyHexNibbles(_uid + hexValid));
+            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(_char_page35));
+            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(_char_page36));
+            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(_uid));
+            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(hexValid));
+            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(hexValid2));
+            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(_uid + hexValid));
 
-            Assert.IsFalse(Bitwise.ContainsOnlyHexNibbles(hexInvalid));
-            Assert.IsFalse(Bitwise.ContainsOnlyHexNibbles(hexInvalid2));
-            Assert.IsFalse(Bitwise.ContainsOnlyHexNibbles(_uid + hexInvalid));
-            Assert.IsFalse(Bitwise.ContainsOnlyHexNibbles(_char_page35 + hexInvalid2));
+            Assert.IsFalse(HexConverter.ContainsOnlyHexNibbles(hexInvalid));
+            Assert.IsFalse(HexConverter.ContainsOnlyHexNibbles(hexInvalid2));
+            Assert.IsFalse(HexConverter.ContainsOnlyHexNibbles(_uid + hexInvalid));
+            Assert.IsFalse(HexConverter.ContainsOnlyHexNibbles(_char_page35 + hexInvalid2));
         }
 
         [TestMethod]
         public void Test_Bitwise_validate_ConvertHexStringToByteArray_Fail()
         {
-            Assert.ThrowsException<FormatException>(() => Bitwise.ConvertHexStringToByteArray(hexString: _uid_invalid));
-            Assert.ThrowsException<FormatException>(() => Bitwise.ConvertHexStringToByteArray(hexString: _data_invalid));
+            Assert.ThrowsException<ArgumentException>(() => HexConverter.HexToBytes(_uid_invalid));
+            Assert.ThrowsException<ArgumentException>(() => HexConverter.HexToBytes(_data_invalid));
         }
 
         [TestMethod]
         public void Test_Bitwise_validate_ConvertHexStringToByteArray_Pass()
         {
-            var buffer = Bitwise.ConvertHexStringToByteArray(hexString: _uid);
-            var uid = Bitwise.ConvertByteArrayToHexString(byteArray: buffer);
+            var buffer = HexConverter.HexToBytes(_uid);
+            var uid = HexConverter.BytesToHex(buffer);
             Assert.AreEqual(uid, _uid);
         }
     }
