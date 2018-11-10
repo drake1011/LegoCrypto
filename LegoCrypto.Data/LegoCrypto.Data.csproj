@@ -34,6 +34,9 @@
     <Reference Include="Bitwise, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SysLib.Bitwise.1.0.1\lib\netstandard2.0\Bitwise.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,18 +48,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\BlankTag.cs" />
+    <Compile Include="Model\Character.cs" />
     <Compile Include="Model\DataRegister.cs" />
     <Compile Include="Model\CharacterTag.cs" />
     <Compile Include="Crypto\CharCrypto.cs" />
     <Compile Include="Model\ITag.cs" />
     <Compile Include="Model\ITagData.cs" />
+    <Compile Include="Model\Vehicle.cs" />
     <Compile Include="Model\VehicleTag.cs" />
+    <Compile Include="Model\IToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\TagFactory.cs" />
     <Compile Include="Crypto\TEA.cs" />
+    <Compile Include="TokenRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\charactermap.json" />
+    <None Include="Resources\tokenmap.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
