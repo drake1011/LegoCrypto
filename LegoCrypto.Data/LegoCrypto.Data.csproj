@@ -50,7 +50,7 @@
     <Compile Include="Crypto\CharCrypto.cs" />
     <Compile Include="Model\ITag.cs" />
     <Compile Include="Model\ITagData.cs" />
-    <Compile Include="Model\TokenTag.cs" />
+    <Compile Include="Model\VehicleTag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\TagFactory.cs" />
     <Compile Include="Crypto\TEA.cs" />

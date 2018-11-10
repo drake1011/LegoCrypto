@@ -15,7 +15,7 @@ namespace LegoCrypto.Data.Model
             if (id < TokenCutoff)
                 return new CharacterTag((uint)id, uid);
             else if (id >= TokenCutoff)
-                return new TokenTag((uint)id, uid);
+                return new VehicleTag((uint)id, uid);
             else
                 throw new ArgumentException("Error invalid ID");
         }
@@ -53,8 +53,8 @@ namespace LegoCrypto.Data.Model
 
             if (pages[DataRegister.Page38] == PageConstants.CharacterType)
                 return new CharacterTag(uid, pages);
-            else if (pages[DataRegister.Page38] == PageConstants.TokenType)
-                return new TokenTag(uid, pages);
+            else if (pages[DataRegister.Page38] == PageConstants.VehicleType)
+                return new VehicleTag(uid, pages);
             else
                 throw new Exception("Incorrect token type detected");
         }

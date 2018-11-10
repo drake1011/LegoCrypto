@@ -16,7 +16,7 @@ namespace LegoCrypto.Data.Model
     {
         public const string DefaultEmpty = "00000000";
         public const string CharacterType = DefaultEmpty;
-        public const string TokenType = "00010000";
+        public const string VehicleType = "00010000";
     }
 
     public class DataRegisterCollection : IEnumerable

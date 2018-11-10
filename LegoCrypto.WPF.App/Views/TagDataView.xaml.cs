@@ -64,7 +64,7 @@ namespace LegoCrypto.WPF.App
                         return _invalidHex;
                     if(DataPage38?.Length == 8)
                     {
-                        if (DataPage38 != PageConstants.CharacterType && DataPage38 != PageConstants.TokenType)
+                        if (DataPage38 != PageConstants.CharacterType && DataPage38 != PageConstants.VehicleType)
                             return "Invalid Token Type";
                     }
                 }

@@ -21,15 +21,15 @@ namespace LegoCrypto.Tests
 
         private const uint _token_id = 1011;
 
-        private const string _token_page35 = "00000000";
-        private const string _token_page36 = "F3030000";
-        private const string _token_page37 = "00000000";
-        private const string _token_page38 = "00010000";
+        private const string _vehicle_page35 = "00000000";
+        private const string _vehicle_page36 = "F3030000";
+        private const string _vehicle_page37 = "00000000";
+        private const string _vehicle_page38 = "00010000";
 
         private const string _pwd = "2E144C21";
 
         private const string _charTagImpl = "CharacterTag";
-        private const string _tokenTagImpl = "TokenTag";
+        private const string _vehicleTagImpl = "VehicleTag";
 
         private const string _uid_invalid = "04F4E7BADC4C8Z";
         private const string _data_invalid = "000N0000";
@@ -46,12 +46,12 @@ namespace LegoCrypto.Tests
         }
 
         [TestMethod]
-        public void Test_CreateTag_Token_id_uid_Pass()
+        public void Test_CreateTag_Vehicle_id_uid_Pass()
         {
             var tag = TagFactory.CreateTag(id: _token_id, uid: _uid);
 
             //verify the correct implementation was created
-            Assert.AreEqual(tag.GetType().Name, _tokenTagImpl);
+            Assert.AreEqual(tag.GetType().Name, _vehicleTagImpl);
             Assert.AreEqual(_uid, tag.UID);
             Assert.AreEqual(_token_id, tag.ID);
         }
@@ -75,16 +75,16 @@ namespace LegoCrypto.Tests
         [TestMethod]
         public void Test_CreateTag_Token_data_Pass()
         {
-            var tag = TagFactory.CreateTag(data: _uid + _token_page35 + _token_page36 + _token_page37 + _token_page38);
+            var tag = TagFactory.CreateTag(data: _uid + _vehicle_page35 + _vehicle_page36 + _vehicle_page37 + _vehicle_page38);
 
             //verify the correct implementation was created
-            Assert.AreEqual(tag.GetType().Name, _tokenTagImpl);
+            Assert.AreEqual(tag.GetType().Name, _vehicleTagImpl);
             Assert.AreEqual(_uid, tag.UID);
             Assert.AreEqual(_token_id, tag.ID);
-            Assert.AreEqual(_token_page35, tag.Pages[DataRegister.Page35]);
-            Assert.AreEqual(_token_page36, tag.Pages[DataRegister.Page36]);
-            Assert.AreEqual(_token_page37, tag.Pages[DataRegister.Page37]);
-            Assert.AreEqual(_token_page38, tag.Pages[DataRegister.Page38]);
+            Assert.AreEqual(_vehicle_page35, tag.Pages[DataRegister.Page35]);
+            Assert.AreEqual(_vehicle_page36, tag.Pages[DataRegister.Page36]);
+            Assert.AreEqual(_vehicle_page37, tag.Pages[DataRegister.Page37]);
+            Assert.AreEqual(_vehicle_page38, tag.Pages[DataRegister.Page38]);
         }
 
         [TestMethod]
@@ -125,25 +125,25 @@ namespace LegoCrypto.Tests
 
             Assert.AreEqual(_uid, tag.UID);
             Assert.AreEqual(_token_id, tag.ID);
-            Assert.AreEqual(_token_page35, tag.Pages[DataRegister.Page35]);
-            Assert.AreEqual(_token_page36, tag.Pages[DataRegister.Page36]);
-            Assert.AreEqual(_token_page37, tag.Pages[DataRegister.Page37]);
-            Assert.AreEqual(_token_page38, tag.Pages[DataRegister.Page38]);
+            Assert.AreEqual(_vehicle_page35, tag.Pages[DataRegister.Page35]);
+            Assert.AreEqual(_vehicle_page36, tag.Pages[DataRegister.Page36]);
+            Assert.AreEqual(_vehicle_page37, tag.Pages[DataRegister.Page37]);
+            Assert.AreEqual(_vehicle_page38, tag.Pages[DataRegister.Page38]);
             Assert.AreEqual(_pwd, tag.Pages[DataRegister.Page43]);
         }
 
         [TestMethod]
         public void Test_Decrypt_Token_data_Pass()
         {
-            var tag = TagFactory.CreateTag(data: _uid + _token_page35 + _token_page36 + _token_page37 + _token_page38);
+            var tag = TagFactory.CreateTag(data: _uid + _vehicle_page35 + _vehicle_page36 + _vehicle_page37 + _vehicle_page38);
             tag.Decrypt();
 
             Assert.AreEqual(_uid, tag.UID);
             Assert.AreEqual(_token_id, tag.ID);
-            Assert.AreEqual(_token_page35, tag.Pages[DataRegister.Page35]);
-            Assert.AreEqual(_token_page36, tag.Pages[DataRegister.Page36]);
-            Assert.AreEqual(_token_page37, tag.Pages[DataRegister.Page37]);
-            Assert.AreEqual(_token_page38, tag.Pages[DataRegister.Page38]);
+            Assert.AreEqual(_vehicle_page35, tag.Pages[DataRegister.Page35]);
+            Assert.AreEqual(_vehicle_page36, tag.Pages[DataRegister.Page36]);
+            Assert.AreEqual(_vehicle_page37, tag.Pages[DataRegister.Page37]);
+            Assert.AreEqual(_vehicle_page38, tag.Pages[DataRegister.Page38]);
             Assert.AreEqual(_pwd, tag.Pages[DataRegister.Page43]);
         }
 

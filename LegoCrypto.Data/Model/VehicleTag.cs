@@ -3,23 +3,23 @@ using LegoCrypto.Data.Crypto;
 
 namespace LegoCrypto.Data.Model
 {
-    internal class TokenTag : ITag
+    internal class VehicleTag : ITag
     {
         public uint? ID { get; private set; }
         public string UID { get; private set; }
         public DataRegisterCollection Pages { get; private set; }
 
-        public TokenTag(uint id, string uid)
+        public VehicleTag(uint id, string uid)
         {
             ID = id;
             UID = uid;
             Pages = new DataRegisterCollection();
             Pages[DataRegister.Page35] = PageConstants.DefaultEmpty;
             Pages[DataRegister.Page37] = PageConstants.DefaultEmpty;
-            Pages[DataRegister.Page38] = PageConstants.TokenType;
+            Pages[DataRegister.Page38] = PageConstants.VehicleType;
         }
 
-        public TokenTag(string uid, DataRegisterCollection pages)
+        public VehicleTag(string uid, DataRegisterCollection pages)
         {
             UID = uid;
             Pages = pages;
