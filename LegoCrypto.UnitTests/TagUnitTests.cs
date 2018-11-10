@@ -1,13 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LegoCrypto.Data.Model;
-using LegoCrypto.Data;
 using SysLib.Bitwise;
+using System;
+using Xunit;
 
 namespace LegoCrypto.Tests
 {
-    [TestClass]
-    public class TagTests
+    public class TagUnitTests
     {
         // verify with https://ldcharcrypto.ags131.com/
 
@@ -34,166 +32,166 @@ namespace LegoCrypto.Tests
         private const string _uid_invalid = "04F4E7BADC4C8Z";
         private const string _data_invalid = "000N0000";
 
-        [TestMethod]
+        [Fact]
         public void Test_CreateTag_Character_id_uid_Pass()
         {
             var tag = TagFactory.CreateTag(id: _char_id, uid: _uid);
 
             //verify the correct implementation was created
-            Assert.AreEqual(tag.GetType().Name, _charTagImpl);
-            Assert.AreEqual(_uid, tag.UID);
-            Assert.AreEqual(_char_id, tag.ID);
+            Assert.Equal(tag.GetType().Name, _charTagImpl);
+            Assert.Equal(_uid, tag.UID);
+            Assert.Equal(_char_id, tag.ID);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_CreateTag_Vehicle_id_uid_Pass()
         {
             var tag = TagFactory.CreateTag(id: _token_id, uid: _uid);
 
             //verify the correct implementation was created
-            Assert.AreEqual(tag.GetType().Name, _vehicleTagImpl);
-            Assert.AreEqual(_uid, tag.UID);
-            Assert.AreEqual(_token_id, tag.ID);
+            Assert.Equal(tag.GetType().Name, _vehicleTagImpl);
+            Assert.Equal(_uid, tag.UID);
+            Assert.Equal(_token_id, tag.ID);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_CreateTag_Character_data_Pass()
         {
             var tag = TagFactory.CreateTag(data: _uid + _char_page35 + _char_page36 + _char_page37 + _char_page38);
 
             //verify the correct implementation was created
             var test = tag.GetType();
-            Assert.AreEqual(tag.GetType().Name, _charTagImpl);
-            Assert.AreEqual(_uid, tag.UID);
-            Assert.AreEqual(_char_id, tag.ID);
-            Assert.AreEqual(_char_page35, tag.Pages[DataRegister.Page35]);
-            Assert.AreEqual(_char_page36, tag.Pages[DataRegister.Page36]);
-            Assert.AreEqual(_char_page37, tag.Pages[DataRegister.Page37]);
-            Assert.AreEqual(_char_page38, tag.Pages[DataRegister.Page38]);
+            Assert.Equal(tag.GetType().Name, _charTagImpl);
+            Assert.Equal(_uid, tag.UID);
+            Assert.Equal(_char_id, tag.ID);
+            Assert.Equal(_char_page35, tag.Pages[DataRegister.Page35]);
+            Assert.Equal(_char_page36, tag.Pages[DataRegister.Page36]);
+            Assert.Equal(_char_page37, tag.Pages[DataRegister.Page37]);
+            Assert.Equal(_char_page38, tag.Pages[DataRegister.Page38]);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_CreateTag_Token_data_Pass()
         {
             var tag = TagFactory.CreateTag(data: _uid + _vehicle_page35 + _vehicle_page36 + _vehicle_page37 + _vehicle_page38);
 
             //verify the correct implementation was created
-            Assert.AreEqual(tag.GetType().Name, _vehicleTagImpl);
-            Assert.AreEqual(_uid, tag.UID);
-            Assert.AreEqual(_token_id, tag.ID);
-            Assert.AreEqual(_vehicle_page35, tag.Pages[DataRegister.Page35]);
-            Assert.AreEqual(_vehicle_page36, tag.Pages[DataRegister.Page36]);
-            Assert.AreEqual(_vehicle_page37, tag.Pages[DataRegister.Page37]);
-            Assert.AreEqual(_vehicle_page38, tag.Pages[DataRegister.Page38]);
+            Assert.Equal(tag.GetType().Name, _vehicleTagImpl);
+            Assert.Equal(_uid, tag.UID);
+            Assert.Equal(_token_id, tag.ID);
+            Assert.Equal(_vehicle_page35, tag.Pages[DataRegister.Page35]);
+            Assert.Equal(_vehicle_page36, tag.Pages[DataRegister.Page36]);
+            Assert.Equal(_vehicle_page37, tag.Pages[DataRegister.Page37]);
+            Assert.Equal(_vehicle_page38, tag.Pages[DataRegister.Page38]);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Encrypt_Character_Pass()
         {
             var tag = TagFactory.CreateTag(id: _char_id, uid: _uid);
             tag.Encrypt();
 
-            Assert.AreEqual(_uid, tag.UID);
-            Assert.AreEqual(_char_id, tag.ID);
-            Assert.AreEqual(_char_page35, tag.Pages[DataRegister.Page35]);
-            Assert.AreEqual(_char_page36, tag.Pages[DataRegister.Page36]);
-            Assert.AreEqual(_char_page37, tag.Pages[DataRegister.Page37]);
-            Assert.AreEqual(_char_page38, tag.Pages[DataRegister.Page38]);
-            Assert.AreEqual(_pwd, tag.Pages[DataRegister.Page43]);
+            Assert.Equal(_uid, tag.UID);
+            Assert.Equal(_char_id, tag.ID);
+            Assert.Equal(_char_page35, tag.Pages[DataRegister.Page35]);
+            Assert.Equal(_char_page36, tag.Pages[DataRegister.Page36]);
+            Assert.Equal(_char_page37, tag.Pages[DataRegister.Page37]);
+            Assert.Equal(_char_page38, tag.Pages[DataRegister.Page38]);
+            Assert.Equal(_pwd, tag.Pages[DataRegister.Page43]);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Decrypt_Character_data_Pass()
         {
             var tag = TagFactory.CreateTag(data: _uid + _char_page35 + _char_page36 + _char_page37 + _char_page38);
             tag.Decrypt();
 
-            Assert.AreEqual(_uid, tag.UID);
-            Assert.AreEqual(_char_id, tag.ID);
-            Assert.AreEqual(_char_page35, tag.Pages[DataRegister.Page35]);
-            Assert.AreEqual(_char_page36, tag.Pages[DataRegister.Page36]);
-            Assert.AreEqual(_char_page37, tag.Pages[DataRegister.Page37]);
-            Assert.AreEqual(_char_page38, tag.Pages[DataRegister.Page38]);
-            Assert.AreEqual(_pwd, tag.Pages[DataRegister.Page43]);
+            Assert.Equal(_uid, tag.UID);
+            Assert.Equal(_char_id, tag.ID);
+            Assert.Equal(_char_page35, tag.Pages[DataRegister.Page35]);
+            Assert.Equal(_char_page36, tag.Pages[DataRegister.Page36]);
+            Assert.Equal(_char_page37, tag.Pages[DataRegister.Page37]);
+            Assert.Equal(_char_page38, tag.Pages[DataRegister.Page38]);
+            Assert.Equal(_pwd, tag.Pages[DataRegister.Page43]);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Encrypt_Token_Pass()
         {
             var tag = TagFactory.CreateTag(id: _token_id, uid: _uid);
             tag.Encrypt();
 
-            Assert.AreEqual(_uid, tag.UID);
-            Assert.AreEqual(_token_id, tag.ID);
-            Assert.AreEqual(_vehicle_page35, tag.Pages[DataRegister.Page35]);
-            Assert.AreEqual(_vehicle_page36, tag.Pages[DataRegister.Page36]);
-            Assert.AreEqual(_vehicle_page37, tag.Pages[DataRegister.Page37]);
-            Assert.AreEqual(_vehicle_page38, tag.Pages[DataRegister.Page38]);
-            Assert.AreEqual(_pwd, tag.Pages[DataRegister.Page43]);
+            Assert.Equal(_uid, tag.UID);
+            Assert.Equal(_token_id, tag.ID);
+            Assert.Equal(_vehicle_page35, tag.Pages[DataRegister.Page35]);
+            Assert.Equal(_vehicle_page36, tag.Pages[DataRegister.Page36]);
+            Assert.Equal(_vehicle_page37, tag.Pages[DataRegister.Page37]);
+            Assert.Equal(_vehicle_page38, tag.Pages[DataRegister.Page38]);
+            Assert.Equal(_pwd, tag.Pages[DataRegister.Page43]);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Decrypt_Token_data_Pass()
         {
             var tag = TagFactory.CreateTag(data: _uid + _vehicle_page35 + _vehicle_page36 + _vehicle_page37 + _vehicle_page38);
             tag.Decrypt();
 
-            Assert.AreEqual(_uid, tag.UID);
-            Assert.AreEqual(_token_id, tag.ID);
-            Assert.AreEqual(_vehicle_page35, tag.Pages[DataRegister.Page35]);
-            Assert.AreEqual(_vehicle_page36, tag.Pages[DataRegister.Page36]);
-            Assert.AreEqual(_vehicle_page37, tag.Pages[DataRegister.Page37]);
-            Assert.AreEqual(_vehicle_page38, tag.Pages[DataRegister.Page38]);
-            Assert.AreEqual(_pwd, tag.Pages[DataRegister.Page43]);
+            Assert.Equal(_uid, tag.UID);
+            Assert.Equal(_token_id, tag.ID);
+            Assert.Equal(_vehicle_page35, tag.Pages[DataRegister.Page35]);
+            Assert.Equal(_vehicle_page36, tag.Pages[DataRegister.Page36]);
+            Assert.Equal(_vehicle_page37, tag.Pages[DataRegister.Page37]);
+            Assert.Equal(_vehicle_page38, tag.Pages[DataRegister.Page38]);
+            Assert.Equal(_pwd, tag.Pages[DataRegister.Page43]);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Decrypt_Character_id_Pass()
         {
             var tag = TagFactory.CreateTag(id: _char_id, uid: _uid);
             tag.Decrypt();
 
-            Assert.AreEqual(_uid, tag.UID);
-            Assert.AreEqual(_char_id, tag.ID);
-            Assert.AreEqual(_pwd, tag.Pages[DataRegister.Page43]);
+            Assert.Equal(_uid, tag.UID);
+            Assert.Equal(_char_id, tag.ID);
+            Assert.Equal(_pwd, tag.Pages[DataRegister.Page43]);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Decrypt_Token_id_Pass()
         {
             var tag = TagFactory.CreateTag(id: _token_id, uid: _uid);
             tag.Decrypt();
 
-            Assert.AreEqual(_uid, tag.UID);
-            Assert.AreEqual(_token_id, tag.ID);
-            Assert.AreEqual(_pwd, tag.Pages[DataRegister.Page43]);
+            Assert.Equal(_uid, tag.UID);
+            Assert.Equal(_token_id, tag.ID);
+            Assert.Equal(_pwd, tag.Pages[DataRegister.Page43]);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_CreateTag_validate_ID_Not_Set_Fail()
         {
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(id: 0, uid: _uid));
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(id: 0, uid: _uid));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_CreateTag_validate_UID_Not_Set_Fail()
         {
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(id: _char_id, uid: null));
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(id: _char_id, uid: string.Empty));
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(id: _char_id, uid: null));
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(id: _char_id, uid: string.Empty));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_CreateTag_validate_UID_Not_Valid_Length_Fail()
         {
             const string nibble = "A";
 
             // too short
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(id: _char_id, uid: nibble));
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(id: _char_id, uid: nibble));
             // too long
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(id: _char_id, uid: _uid + nibble));
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(id: _char_id, uid: _uid + nibble));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_CreateTag_validate_FullData_Not_Valid_Length_Fail()
         {
             const string dataShort = _uid + _char_page35;
@@ -206,12 +204,12 @@ namespace LegoCrypto.Tests
                 _char_page38;
 
             // too short
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(data: dataShort));
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(data: dataShort));
             // too long
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(data: dataLong));
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(data: dataLong));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_CreateTag_validate_DataPage_Not_Valid_Length_Fail()
         {
             const string dataPageOK = "00000000";
@@ -219,7 +217,7 @@ namespace LegoCrypto.Tests
             const string dataPageShort = "123";
 
             #region dataPageLong
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(
                 uid: _uid,
                 dataPage35: dataPageLong,
                 dataPage36: dataPageLong,
@@ -227,7 +225,7 @@ namespace LegoCrypto.Tests
                 dataPage38: dataPageLong
                 ));
 
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(
                 uid: _uid,
                 dataPage35: dataPageLong,
                 dataPage36: dataPageOK,
@@ -235,7 +233,7 @@ namespace LegoCrypto.Tests
                 dataPage38: dataPageOK
                 ));
 
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(
                 uid: _uid,
                 dataPage35: dataPageOK,
                 dataPage36: dataPageLong,
@@ -243,7 +241,7 @@ namespace LegoCrypto.Tests
                 dataPage38: dataPageOK
                 ));
 
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(
                 uid: _uid,
                 dataPage35: dataPageOK,
                 dataPage36: dataPageOK,
@@ -251,7 +249,7 @@ namespace LegoCrypto.Tests
                 dataPage38: dataPageOK
                 ));
 
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(
                 uid: _uid,
                 dataPage35: dataPageOK,
                 dataPage36: dataPageOK,
@@ -260,7 +258,7 @@ namespace LegoCrypto.Tests
                 ));
             #endregion
             #region dataPageShort
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(
                 uid: _uid,
                 dataPage35: dataPageShort,
                 dataPage36: dataPageShort,
@@ -268,7 +266,7 @@ namespace LegoCrypto.Tests
                 dataPage38: dataPageShort
                 ));
 
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(
                 uid: _uid,
                 dataPage35: dataPageShort,
                 dataPage36: dataPageOK,
@@ -276,7 +274,7 @@ namespace LegoCrypto.Tests
                 dataPage38: dataPageOK
                 ));
 
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(
                 uid: _uid,
                 dataPage35: dataPageOK,
                 dataPage36: dataPageShort,
@@ -284,7 +282,7 @@ namespace LegoCrypto.Tests
                 dataPage38: dataPageOK
                 ));
 
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(
                 uid: _uid,
                 dataPage35: dataPageOK,
                 dataPage36: dataPageOK,
@@ -292,7 +290,7 @@ namespace LegoCrypto.Tests
                 dataPage38: dataPageOK
                 ));
 
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(
                 uid: _uid,
                 dataPage35: dataPageOK,
                 dataPage36: dataPageOK,
@@ -302,20 +300,20 @@ namespace LegoCrypto.Tests
             #endregion
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_CreateTag_validate_Invalid_Hex_UID_Fail()
         {
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(id: _char_id, uid: _uid_invalid));
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(id: _char_id, uid: _uid_invalid));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_CreateTag_validate_Invalid_Hex_data_Fail()
         {
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(data: _uid + _char_page35 + _data_invalid + _char_page37 + _char_page38));
-            Assert.ThrowsException<ArgumentException>(() => TagFactory.CreateTag(data: _uid_invalid + _char_page35 + _char_page36 + _char_page37 + _char_page38));
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(data: _uid + _char_page35 + _data_invalid + _char_page37 + _char_page38));
+            Assert.Throws<ArgumentException>(() => TagFactory.CreateTag(data: _uid_invalid + _char_page35 + _char_page36 + _char_page37 + _char_page38));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Bitwise_validate_Hex_PassFail()
         {
             const string hexValid = "A";
@@ -323,32 +321,32 @@ namespace LegoCrypto.Tests
             const string hexInvalid = "0Z";
             const string hexInvalid2 = "AG";
 
-            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(_char_page35));
-            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(_char_page36));
-            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(_uid));
-            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(hexValid));
-            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(hexValid2));
-            Assert.IsTrue(HexConverter.ContainsOnlyHexNibbles(_uid + hexValid));
+            Assert.True(HexConverter.ContainsOnlyHexNibbles(_char_page35));
+            Assert.True(HexConverter.ContainsOnlyHexNibbles(_char_page36));
+            Assert.True(HexConverter.ContainsOnlyHexNibbles(_uid));
+            Assert.True(HexConverter.ContainsOnlyHexNibbles(hexValid));
+            Assert.True(HexConverter.ContainsOnlyHexNibbles(hexValid2));
+            Assert.True(HexConverter.ContainsOnlyHexNibbles(_uid + hexValid));
 
-            Assert.IsFalse(HexConverter.ContainsOnlyHexNibbles(hexInvalid));
-            Assert.IsFalse(HexConverter.ContainsOnlyHexNibbles(hexInvalid2));
-            Assert.IsFalse(HexConverter.ContainsOnlyHexNibbles(_uid + hexInvalid));
-            Assert.IsFalse(HexConverter.ContainsOnlyHexNibbles(_char_page35 + hexInvalid2));
+            Assert.False(HexConverter.ContainsOnlyHexNibbles(hexInvalid));
+            Assert.False(HexConverter.ContainsOnlyHexNibbles(hexInvalid2));
+            Assert.False(HexConverter.ContainsOnlyHexNibbles(_uid + hexInvalid));
+            Assert.False(HexConverter.ContainsOnlyHexNibbles(_char_page35 + hexInvalid2));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Bitwise_validate_ConvertHexStringToByteArray_Fail()
         {
-            Assert.ThrowsException<ArgumentException>(() => HexConverter.HexToBytes(_uid_invalid));
-            Assert.ThrowsException<ArgumentException>(() => HexConverter.HexToBytes(_data_invalid));
+            Assert.Throws<ArgumentException>(() => HexConverter.HexToBytes(_uid_invalid));
+            Assert.Throws<ArgumentException>(() => HexConverter.HexToBytes(_data_invalid));
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_Bitwise_validate_ConvertHexStringToByteArray_Pass()
         {
             var buffer = HexConverter.HexToBytes(_uid);
             var uid = HexConverter.BytesToHex(buffer);
-            Assert.AreEqual(uid, _uid);
+            Assert.Equal(uid, _uid);
         }
     }
 }
