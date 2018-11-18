@@ -69,11 +69,15 @@
     </ApplicationDefinition>
     <Compile Include="ViewModels\CryptoViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModels\TokenSelectionViewModel.cs" />
     <Compile Include="Views\TagDataView.xaml.cs">
       <DependentUpon>TagDataView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\TagDataViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\TokenSelectionView.xaml.cs">
+      <DependentUpon>TokenSelectionView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,6 +91,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\TagDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TokenSelectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

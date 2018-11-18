@@ -6,12 +6,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LegoCrypto.WPF.App"
         mc:Ignorable="d"
-        Title="LegoCrypto" Height="350" Width="250" MinHeight="330" MinWidth="200" MaxHeight="400" MaxWidth="300"
+        Title="LegoCrypto" Height="400" Width="500" MinHeight="330" MinWidth="200" MaxHeight="450" MaxWidth="550"
         Icon="./Resources/L900032x166_256_32.ico" >
     <Window.DataContext>
         <local:CryptoViewModel />
     </Window.DataContext>
-    <Grid Margin="4">
+    <TabControl Controls:TabControlHelper.IsUnderlined="True">
+        <TabItem Header="Crypto">
+            <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="6*" />
@@ -33,7 +35,12 @@
                            DataPage43="{Binding DataPage43}"
                            HorizontalAlignment="Center" VerticalAlignment="Center"
                            FontSize="14" TabIndex="0" />
-        <Button Grid.Row="2" Content="Calculate" HorizontalAlignment="Center" Width="75" 
+                <Button Grid.Row="2" Content="Calculate" HorizontalAlignment="Center" Width="75" 
                 Command="{Binding CalculateCmd}" Margin="4" FontSize="14" TabIndex="20" />
-    </Grid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Tokens">
+            <local:TokenSelectionView />
+        </TabItem>
+    </TabControl>
 </Controls:MetroWindow>
