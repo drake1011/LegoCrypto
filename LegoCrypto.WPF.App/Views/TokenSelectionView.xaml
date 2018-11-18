@@ -10,18 +10,22 @@
         <Grid.DataContext>
             <local:TokenSelectionViewModel/>
         </Grid.DataContext>
-        <TabControl TabStripPlacement="Left" mah:TabControlHelper.IsUnderlined="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" TabStripPlacement="Left" mah:TabControlHelper.IsUnderlined="True">
             <TabItem Header="Character" mah:ControlsHelper.HeaderFontSize="20">
                 <DataGrid ItemsSource="{Binding Characters}" FontSize="14" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="40" MinWidth="40" MaxWidth="50" Binding="{Binding ID}" Header="ID" />
-                        <DataGridTextColumn Width="4*" MinWidth="50" Binding="{Binding Name}" Header="Name"/>
-                        <DataGridTextColumn Width="5*" MinWidth="100" Binding="{Binding World}" Header="World" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="40" MinWidth="40" MaxWidth="50" Binding="{Binding ID}" Header="ID" />
+                            <DataGridTextColumn Width="4*" MinWidth="50" Binding="{Binding Name}" Header="Name"/>
+                            <DataGridTextColumn Width="5*" MinWidth="100" Binding="{Binding World}" Header="World" />
+                        </DataGrid.Columns>
+                    </DataGrid>
             </TabItem>
             <TabItem Header="Vehicle" mah:ControlsHelper.HeaderFontSize="20">
-                <DataGrid ItemsSource="{Binding Vehicles}" FontSize="14" AutoGenerateColumns="False" SelectionMode="Single">
+                <DataGrid Grid.Row="0" ItemsSource="{Binding Vehicles}" FontSize="14" AutoGenerateColumns="False" SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="40" MinWidth="40" MaxWidth="50" Binding="{Binding ID}" Header="ID" />
                         <DataGridTextColumn Width="82" MinWidth="40" MaxWidth="100" Binding="{Binding Rebuild}" Header="Rebuild" />
@@ -30,5 +34,9 @@
                 </DataGrid>
             </TabItem>
         </TabControl>
+        <StatusBar Grid.Row="1">
+            <StatusBarItem Content="Tokens" />
+            <StatusBarItem Content="{Binding StatusMessage}" />
+        </StatusBar>
     </Grid>
 </UserControl>
