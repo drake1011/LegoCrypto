@@ -18,7 +18,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Content="Port" HorizontalAlignment="Right" VerticalAlignment="Top" />
-        <ComboBox x:Name="cboCom" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170" ItemsSource="{Binding ComPorts}" DisplayMemberPath="{Binding DisplayMember}" >
+        <ComboBox x:Name="cboCom" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170" ItemsSource="{Binding ComPorts}" DisplayMemberPath="{Binding DisplayMember}" IsSynchronizedWithCurrentItem="True" >
             <ie:Interaction.Triggers>
                 <ie:EventTrigger EventName="SelectionChanged">
                     <ie:InvokeCommandAction Command="{Binding SelectionChangedCmd}" CommandParameter="{Binding ElementName=cboCom, Path=SelectedItem}" />

@@ -36,7 +36,7 @@ namespace LegoCrypto.IO
 
         public COMPortInfo() { }
 
-        public static List<COMPortInfo> GetCOMPortsInfo()
+        public static IEnumerable<COMPortInfo> GetCOMPortsInfo()
         {
             var comPortInfoList = new List<COMPortInfo>();
 
