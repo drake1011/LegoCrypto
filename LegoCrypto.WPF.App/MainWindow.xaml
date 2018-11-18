@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LegoCrypto.WPF.App"
         mc:Ignorable="d"
-        Title="LegoCrypto" Height="400" Width="500" MinHeight="330" MinWidth="200" MaxHeight="450" MaxWidth="550"
+        Title="LegoCrypto" Height="400" Width="520" MinHeight="330" MinWidth="200" MaxHeight="450" MaxWidth="560"
         Icon="./Resources/L900032x166_256_32.ico" >
     <Window.DataContext>
         <local:CryptoViewModel />
