@@ -67,7 +67,7 @@
     <Content Include="Resources\charactermap.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\tokenmap.json">
+    <Content Include="Resources\vehiclemap.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

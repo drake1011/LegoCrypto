@@ -8,9 +8,9 @@ namespace LegoCrypto.UnitTests
     public class RepoUnitTests
     {
         private readonly string _charactermap = $"Resources{Path.DirectorySeparatorChar}charactermap.json";
-        private readonly string _tokenmap = $"Resources{Path.DirectorySeparatorChar}tokenmap.json";
+        private readonly string _vehiclemap = $"Resources{Path.DirectorySeparatorChar}vehiclemap.json";
         private readonly string _tempCharactermap = $"Resources{Path.DirectorySeparatorChar}_charactermap.json";
-        private readonly string _tempTokenmap = $"Resources{Path.DirectorySeparatorChar}_tokenmap.json";
+        private readonly string _tempVehiclemap = $"Resources{Path.DirectorySeparatorChar}_vehiclemap.json";
 
         private readonly Character _character = new Character { ID = 1, Name = "Test", World = "myWorld" };
         private readonly Vehicle _vehicle = new Vehicle { ID = 2000, Name = "Vehicle", Rebuild = 0 };
@@ -25,7 +25,7 @@ namespace LegoCrypto.UnitTests
         [Fact]
         public void Test_Load_Vehicles()
         {
-            var tokens = TokenRepo<Vehicle>.Load(_tokenmap);
+            var tokens = TokenRepo<Vehicle>.Load(_vehiclemap);
             Assert.True(tokens.Length > 0);
         }
 
@@ -52,17 +52,17 @@ namespace LegoCrypto.UnitTests
         {
             var vehicles = new Vehicle[] { _vehicle, _vehicle };
 
-            if (File.Exists(_tempTokenmap))
-                File.Delete(_tempTokenmap);
+            if (File.Exists(_tempVehiclemap))
+                File.Delete(_tempVehiclemap);
 
-            TokenRepo<Vehicle>.Write(vehicles, _tempTokenmap);
-            Assert.True(File.Exists(_tempTokenmap));
+            TokenRepo<Vehicle>.Write(vehicles, _tempVehiclemap);
+            Assert.True(File.Exists(_tempVehiclemap));
 
-            var tokens = TokenRepo<Vehicle>.Load(_tempTokenmap);
+            var tokens = TokenRepo<Vehicle>.Load(_tempVehiclemap);
             Assert.Equal(tokens.Length, vehicles.Length);
 
-            if (File.Exists(_tempTokenmap))
-                File.Delete(_tempTokenmap);
+            if (File.Exists(_tempVehiclemap))
+                File.Delete(_tempVehiclemap);
         }
     }
 }
