@@ -72,7 +72,11 @@
     </ApplicationDefinition>
     <Compile Include="ViewModels\CryptoViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModels\DeviceViewModel.cs" />
     <Compile Include="ViewModels\TokenSelectionViewModel.cs" />
+    <Compile Include="Views\DeviceView.xaml.cs">
+      <DependentUpon>DeviceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TagDataView.xaml.cs">
       <DependentUpon>TagDataView.xaml</DependentUpon>
     </Compile>
@@ -93,6 +97,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\DeviceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TagDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,6 +142,10 @@
     <ProjectReference Include="..\LegoCrypto.Data\LegoCrypto.Data.csproj">
       <Project>{6b64f277-9d5c-43b9-9690-aecce669c557}</Project>
       <Name>LegoCrypto.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LegoCrypto.IO\LegoCrypto.IO.csproj">
+      <Project>{214e324d-faba-4a79-bf5e-1185ab140100}</Project>
+      <Name>LegoCrypto.IO</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

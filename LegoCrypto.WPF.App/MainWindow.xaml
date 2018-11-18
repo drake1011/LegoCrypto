@@ -42,5 +42,8 @@
         <TabItem Header="Tokens">
             <local:TokenSelectionView />
         </TabItem>
+        <TabItem Header="IO">
+            <local:DeviceView />
+        </TabItem>
     </TabControl>
 </Controls:MetroWindow>
