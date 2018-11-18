@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LegoCrypto.Data\LegoCrypto.Data.csproj" />
+    <ProjectReference Include="..\LegoCrypto.IO\LegoCrypto.IO.csproj" />
   </ItemGroup>
 
 </Project>
