@@ -2,8 +2,9 @@
 
 namespace LegoCrypto.IO
 {
-    interface INfcDevice
+    public interface INfcDevice
     {
+        bool CheckDevice();
         ITag ReadNtag();
     }
 }

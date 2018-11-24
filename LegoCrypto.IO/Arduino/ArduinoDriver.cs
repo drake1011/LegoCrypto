@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LegoCrypto.IO.Arduino
 {
-    public abstract class ArduinoDriver : IDisposable
+    internal class ArduinoDriver : IDisposable
     {
         private SerialPort Serial;
         private bool Reading_Ended { get; set; }

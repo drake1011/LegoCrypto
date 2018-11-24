@@ -5,29 +5,50 @@ using System.Threading;
 
 namespace LegoCrypto.IO.Arduino
 {
-    public class ArduinoNFC : ArduinoDriver, INfcDevice
+    public class ArduinoNFC : INfcDevice, IDisposable
     {
         public Stopwatch stopwatch { get; set; }
+        private string _comPort;
+        private int _baudRate;
+        private int _timeOut;
 
-        public ArduinoNFC(string comPort, int baudRate, int timeOut) : base(comPort, baudRate, timeOut)
+        public ArduinoNFC()
         {
+
+        }
+        public ArduinoNFC(string comPort, int baudRate, int timeOut)
+        {
+            _comPort = comPort;
+            _baudRate = baudRate;
+            _timeOut = timeOut;
             stopwatch = new Stopwatch();
+        }
+
+        public bool CheckDevice()
+        {
+            using (var arduino = new ArduinoDriver(_comPort, _baudRate, _timeOut))
+            {
+                return (arduino.SendCommand(ArduinoCommands.LEGO_ARDUINO) == "MFRC522_V001");
+            }
         }
 
         public ITag ReadNtag()
         {
-            var output = WaitForNtagHere();
-            if (output == ArduinoCommands.NTAG_FOUND)
+            using (var arduino = new ArduinoDriver(_comPort, _baudRate, _timeOut))
             {
-                return NtagRead();
+                var output = WaitForNtagHere(arduino);
+                if (output == ArduinoCommands.NTAG_FOUND)
+                {
+                    return NtagRead(arduino);
+                }
             }
             return null;
         }
 
-        private ITag NtagRead()
+        private ITag NtagRead(ArduinoDriver arduino)
         {
             var result = string.Empty;
-            result = SendCommand(ArduinoCommands.NTAG_FULL);
+            result = arduino.SendCommand(ArduinoCommands.NTAG_FULL);
             string[] SplitResult = result.Split('/', ' ');
 
             if (SplitResult.Length > 1)
@@ -38,7 +59,7 @@ namespace LegoCrypto.IO.Arduino
             return TagFactory.CreateTag(result);
         }
 
-        private string WaitForNtagHere()
+        private string WaitForNtagHere(ArduinoDriver arduino)
         {
             var result = string.Empty;
             try
@@ -46,11 +67,11 @@ namespace LegoCrypto.IO.Arduino
                 stopwatch.Restart();
                 do
                 {
-                    result = SendCommand(ArduinoCommands.NTAG_HERE);
+                    result = arduino.SendCommand(ArduinoCommands.NTAG_HERE);
 
                     Thread.Sleep(100);
 
-                    if (stopwatch.ElapsedMilliseconds > TimeOut)
+                    if (stopwatch.ElapsedMilliseconds > _timeOut)
                         stopwatch.Stop();
 
                     if (!stopwatch.IsRunning)
@@ -63,6 +84,11 @@ namespace LegoCrypto.IO.Arduino
                 throw;
             }
             return result;
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }
