@@ -27,12 +27,12 @@ namespace LegoCrypto.WPF.App.ViewModels
             StatusMessage += " | ";
 
             Characters = characters;
-            StatusMessage += $"{Characters.Length} Characters";
+            StatusMessage += $"{Characters?.Length} Characters";
 
             StatusMessage += " | ";
 
             Vehicles = vehicles;
-            StatusMessage += $"{Vehicles.Length} Vehicles";
+            StatusMessage += $"{Vehicles?.Length} Vehicles";
         }
     }
 }

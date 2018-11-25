@@ -3,7 +3,7 @@ using SysLib.Bitwise;
 using System;
 using Xunit;
 
-namespace LegoCrypto.Tests
+namespace LegoCrypto.UnitTests
 {
     public class TagUnitTests
     {

@@ -47,6 +47,9 @@
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net47\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO.Ports, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -153,7 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LegoCrypto.Data\LegoCrypto.Data.csproj">
-      <Project>{6b64f277-9d5c-43b9-9690-aecce669c557}</Project>
+      <Project>{7bd691e9-752d-4e94-91f8-ec222baba5f3}</Project>
       <Name>LegoCrypto.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\LegoCrypto.IO\LegoCrypto.IO.csproj">

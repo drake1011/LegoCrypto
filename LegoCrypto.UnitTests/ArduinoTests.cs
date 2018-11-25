@@ -9,7 +9,7 @@ namespace LegoCrypto.UnitTests
         [Fact]
         public void Test()
         {
-            using (var arduino = new ArduinoNFC("COM4", 9600, 30000))
+            using (var arduino = new ArduinoNFC("COM4", 9600, 1000))
             {
                 var result = arduino.ReadNtag();
             }
