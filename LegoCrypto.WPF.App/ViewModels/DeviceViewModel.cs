@@ -131,10 +131,10 @@ namespace LegoCrypto.WPF.App
         {
             using (var arduino = new IO.Arduino.ArduinoNFC(((COMPortInfo)_collectionView.CurrentItem).Name, 9600, 800))
             {
-                ConnectStatus = arduino.CheckDevice() ? "Success" : "Fail";
+                ConnectStatus = arduino.CheckDevice() ? "Arduino Verified" : "Unverified!";
             }
 
-            if (ConnectStatus == "Success")
+            if (ConnectStatus == "Arduino Verified")
             {
                 NfcDevice = new IO.Arduino.ArduinoNFC(((COMPortInfo)_collectionView.CurrentItem).Name, 9600, 3000);
             }

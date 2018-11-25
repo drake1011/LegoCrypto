@@ -5,18 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ie="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:LegoCrypto.WPF.App"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" >
     <Grid x:Name="root">
         <Grid.DataContext>
             <local:DeviceViewModel />
         </Grid.DataContext>
-        <TabControl TabStripPlacement="Left" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" TabStripPlacement="Left" >
             <TabItem Header="Device" >
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -24,14 +29,17 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Content="Port" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                    <ComboBox x:Name="cboCom" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="190" ItemsSource="{Binding ComPorts}" DisplayMemberPath="{Binding DisplayMember}" IsSynchronizedWithCurrentItem="True" >
+                    <ComboBox x:Name="cboCom" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                              ItemsSource="{Binding ComPorts}" DisplayMemberPath="{Binding DisplayMember}" IsSynchronizedWithCurrentItem="True" >
                         <ie:Interaction.Triggers>
                             <ie:EventTrigger EventName="SelectionChanged">
-                                <ie:InvokeCommandAction Command="{Binding SelectionChangedCmd}" CommandParameter="{Binding ElementName=cboCom, Path=SelectedItem}" />
+                                <ie:InvokeCommandAction Command="{Binding SelectionChangedCmd}" 
+                                                        CommandParameter="{Binding ElementName=cboCom, Path=SelectedItem}" />
                             </ie:EventTrigger>
                         </ie:Interaction.Triggers>
                     </ComboBox>
-                    <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding RefreshPortsCmd}" IsEnabled="{Binding IONoProgress}" >
+                    <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                            Command="{Binding RefreshPortsCmd}" IsEnabled="{Binding IONoProgress}" Margin="2,0" >
                         <Viewbox Width="16" Height="16" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
                             <Rectangle Width="16" Height="16">
                                 <Rectangle.Fill>
@@ -50,9 +58,10 @@
                             </Rectangle>
                         </Viewbox>
                     </Button>
-                    <Button Grid.Row="1" Grid.ColumnSpan="3" Content="Connect" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    <Button Grid.Row="1" Grid.ColumnSpan="3" Content="Connect" HorizontalAlignment="Center" VerticalAlignment="Top" 
                             Command="{Binding ConnectCmd}" IsEnabled="{Binding IONoProgress}"  />
-                    <TextBlock Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ConnectStatus}" />
+                    <TextBlock Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                               Text="{Binding ConnectStatus}" FontSize="16" />
                 </Grid>
             </TabItem>
             <TabItem Header="Read" >
@@ -78,6 +87,12 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        
+        <StatusBar Grid.Row="1">
+            <StatusBarItem>Device | </StatusBarItem>
+            <StatusBarItem Content="{Binding ConnectStatus}" />
+            <StatusBarItem HorizontalAlignment="Right">
+                <Controls:ProgressRing IsActive="{Binding IOInProgress}" Height="Auto"  />
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </UserControl>
