@@ -1,9 +1,10 @@
 ﻿using LegoCrypto.Data.Model;
+using LegoCrypto.WPF.App.Views;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Windows;
 
-namespace LegoCrypto.WPF.App
+namespace LegoCrypto.WPF.App.ViewModels
 {
     public class CryptoViewModel : ViewModelBase
     {
@@ -52,6 +53,7 @@ namespace LegoCrypto.WPF.App
 
         public CryptoViewModel()
         {
+            DisplayName = "Crypto";
             RadioChangeCmd = new RelayCommand(HandleRadioChange);
             CalculateCmd = new RelayCommand(Calculate);
             HandleRadioChange();

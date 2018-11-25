@@ -8,13 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace LegoCrypto.WPF.App
+namespace LegoCrypto.WPF.App.ViewModels
 {
     public class TokenSelectionViewModel : ViewModelBase
     {
-        private readonly string _charactermap = "charactermap.json";
-        private readonly string _vehiclemap = "vehiclemap.json";
-
         private Character[] _characters;
         public Character[] Characters { get => _characters; set => SetProperty(ref _characters, value); }
 
@@ -24,30 +21,18 @@ namespace LegoCrypto.WPF.App
         private string _statusMessage = string.Empty;
         public string StatusMessage { get => _statusMessage; set => SetProperty(ref _statusMessage, value); }
 
-        public TokenSelectionViewModel()
+        public TokenSelectionViewModel(Character[] characters, Vehicle[] vehicles)
         {
+            DisplayName = "Tokens";
             StatusMessage += " | ";
-            try
-            {
-                Characters = TokenRepo<Character>.Load($"Resources{Path.DirectorySeparatorChar}{_charactermap}");
-                StatusMessage += $"{Characters.Length} Characters";
-            }
-            catch
-            {
-                StatusMessage += $"Error loading {_charactermap}";
-            }
+
+            Characters = characters;
+            StatusMessage += $"{Characters?.Length} Characters";
 
             StatusMessage += " | ";
 
-            try
-            { 
-                Vehicles = TokenRepo<Vehicle>.Load($"Resources{Path.DirectorySeparatorChar}{_vehiclemap}");
-                StatusMessage += $"{Vehicles.Length} Vehicles";
-            }
-            catch
-            {
-                StatusMessage += $"Error loading {_vehiclemap}";
-            }
+            Vehicles = vehicles;
+            StatusMessage += $"{Vehicles?.Length} Vehicles";
         }
     }
 }

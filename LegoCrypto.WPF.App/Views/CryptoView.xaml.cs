@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace LegoCrypto.WPF.App.Views
 {
     /// <summary>
-    /// Interaction logic for TokenSelectionView.xaml
+    /// Interaction logic for CryptoView.xaml
     /// </summary>
-    public partial class TokenSelectionView : UserControl
+    public partial class CryptoView : UserControl
     {
-        public TokenSelectionView()
+        public CryptoView()
         {
             InitializeComponent();
         }

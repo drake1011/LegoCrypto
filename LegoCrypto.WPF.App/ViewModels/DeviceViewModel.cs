@@ -10,7 +10,7 @@ using System.Windows.Data;
 using LegoCrypto.Data.Model;
 using LegoCrypto.IO;
 
-namespace LegoCrypto.WPF.App
+namespace LegoCrypto.WPF.App.ViewModels
 {
     public class DeviceViewModel : ViewModelBase
     {
@@ -89,6 +89,7 @@ namespace LegoCrypto.WPF.App
 
         public DeviceViewModel()
         {
+            DisplayName = "IO";
             SelectionChangedCmd = new RelayCommand<object>(SelectionChanged);
             RefreshPortsCmd = new RelayCommand(RefreshPorts);
             ConnectCmd = new RelayCommand(Connect);

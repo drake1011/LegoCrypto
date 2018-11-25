@@ -1,7 +1,8 @@
 ﻿
+using LegoCrypto.WPF.App.Views;
 using System.Windows.Media;
 
-namespace LegoCrypto.WPF.App
+namespace LegoCrypto.WPF.App.ViewModels
 {
     public class TagDataViewModel : ViewModelBase
     {

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LegoCrypto.WPF.App
+namespace LegoCrypto.WPF.App.Views
 {
     /// <summary>
     /// Interaction logic for DeviceView.xaml
