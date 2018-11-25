@@ -26,6 +26,7 @@ namespace LegoCrypto.WPF.App
         public RelayCommand RefreshPortsCmd { get; set; }
         public RelayCommand ConnectCmd { get; set; }
         public RelayCommand ReadCmd { get; set; }
+        public RelayCommand CancelCmd { get; set; }
 
         private ICollectionView _collectionView;
 
@@ -67,7 +68,24 @@ namespace LegoCrypto.WPF.App
         public string DataPage43 { get => _dataPage43; set => SetProperty(ref _dataPage43, value); }
 
         private bool _IOButtonEnabled;
+        /// <summary>
+        /// Enabled property for IO commands
+        /// </summary>
         public bool IOButtonEnabled { get => _IOButtonEnabled; set => SetProperty(ref _IOButtonEnabled, value); }
+
+        private bool _IOInProgress;
+        /// <summary>
+        /// Enabled property for IO command in progress
+        /// </summary>
+        public bool IOInProgress { get => _IOInProgress; set => SetProperty(ref _IOInProgress, value); }
+
+        private bool _IONoProgress = true;
+        /// <summary>
+        /// Enabled property for IO command not in progress
+        /// </summary>
+        public bool IONoProgress { get => _IONoProgress; set => SetProperty(ref _IONoProgress, value); }
+
+        private BackgroundWorker Worker;
 
         public DeviceViewModel()
         {
@@ -75,8 +93,12 @@ namespace LegoCrypto.WPF.App
             RefreshPortsCmd = new RelayCommand(RefreshPorts);
             ConnectCmd = new RelayCommand(Connect);
             ReadCmd = new RelayCommand(Read);
+            CancelCmd = new RelayCommand(Cancel);
             RefreshPorts();
-            
+
+            Worker = new BackgroundWorker();
+            Worker.DoWork += Worker_DoWork;
+            Worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
         }
 
         public void SelectionChanged(object sender)
@@ -101,6 +123,12 @@ namespace LegoCrypto.WPF.App
         public void Connect()
         {
             ConnectStatus = "...";
+            Worker.RunWorkerAsync(NfcCommand.CheckDevice);
+
+        }
+
+        private void CheckDevice()
+        {
             using (var arduino = new IO.Arduino.ArduinoNFC(((COMPortInfo)_collectionView.CurrentItem).Name, 9600, 800))
             {
                 ConnectStatus = arduino.CheckDevice() ? "Success" : "Fail";
@@ -109,20 +137,49 @@ namespace LegoCrypto.WPF.App
             if (ConnectStatus == "Success")
             {
                 NfcDevice = new IO.Arduino.ArduinoNFC(((COMPortInfo)_collectionView.CurrentItem).Name, 9600, 3000);
-                IOButtonEnabled = true;
             }
             else
             {
                 NfcDevice = null;
-                IOButtonEnabled = false;
             }
-
         }
+
+        private void IOButtonControl(bool Enable) => IOButtonEnabled = NfcDevice == null ? false : Enable;
 
         public void Read()
         {
             if (NfcDevice != null)
-                TagRead = NfcDevice.ReadNtag();
+                Worker.RunWorkerAsync(NfcCommand.ReadNtag);
+        }
+
+        public void Cancel()
+        {
+            if (Worker.IsBusy)
+                NfcDevice.CancelCommand();
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            IOButtonControl(false);
+            IOInProgress = !(IONoProgress = false);
+
+            switch ((NfcCommand)e.Argument)
+            {
+                case NfcCommand.ReadNtag:
+                    TagRead = NfcDevice.ReadNtag();
+                    break;
+                case NfcCommand.CheckDevice:
+                    CheckDevice();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            IOButtonControl(true);
+            IOInProgress = !(IONoProgress = true);
         }
     }
 }

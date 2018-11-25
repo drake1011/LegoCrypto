@@ -97,5 +97,10 @@ namespace LegoCrypto.IO.Arduino
         {
             
         }
+
+        public void CancelCommand()
+        {
+            stopwatch.Stop();
+        }
     }
 }

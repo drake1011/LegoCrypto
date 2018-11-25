@@ -31,7 +31,7 @@
                             </ie:EventTrigger>
                         </ie:Interaction.Triggers>
                     </ComboBox>
-                    <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding RefreshPortsCmd}" >
+                    <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding RefreshPortsCmd}" IsEnabled="{Binding IONoProgress}" >
                         <Viewbox Width="16" Height="16" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
                             <Rectangle Width="16" Height="16">
                                 <Rectangle.Fill>
@@ -50,7 +50,8 @@
                             </Rectangle>
                         </Viewbox>
                     </Button>
-                    <Button Grid.Row="1" Grid.ColumnSpan="3" Content="Connect" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ConnectCmd}"  />
+                    <Button Grid.Row="1" Grid.ColumnSpan="3" Content="Connect" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            Command="{Binding ConnectCmd}" IsEnabled="{Binding IONoProgress}"  />
                     <TextBlock Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ConnectStatus}" />
                 </Grid>
             </TabItem>
@@ -68,7 +69,12 @@
                            DataPage37="{Binding DataPage37}"
                            DataPage38="{Binding DataPage38}"
                            DataPage43="{Binding DataPage43}" />
-                    <Button Content="Read" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ReadCmd}" IsEnabled="{Binding IOButtonEnabled}" />
+                    <WrapPanel Grid.Row="1" HorizontalAlignment="Center">
+                    <Button Content="Read" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            Command="{Binding ReadCmd}" IsEnabled="{Binding IOButtonEnabled}" Margin="2,0" />
+                    <Button Content="Cancel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            Command="{Binding CancelCmd}" IsEnabled="{Binding IOInProgress}" Margin="2,0" />
+                    </WrapPanel>
                 </Grid>
             </TabItem>
         </TabControl>
