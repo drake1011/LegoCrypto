@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using LegoCrypto.Data.Model;
 using LegoCrypto.IO;
 
 namespace LegoCrypto.WPF.App
@@ -24,17 +25,56 @@ namespace LegoCrypto.WPF.App
         public RelayCommand<object> SelectionChangedCmd { get; set; }
         public RelayCommand RefreshPortsCmd { get; set; }
         public RelayCommand ConnectCmd { get; set; }
+        public RelayCommand ReadCmd { get; set; }
 
         private ICollectionView _collectionView;
 
         private INfcDevice _nfcDevice;
-        public INfcDevice NfCDevice { get => _nfcDevice; set => SetProperty(ref _nfcDevice, value); }
+        public INfcDevice NfcDevice { get => _nfcDevice; set => SetProperty(ref _nfcDevice, value); }
+
+        private ITagData _tagRead;
+        public ITagData TagRead { get => _tagRead;
+            set {
+                SetProperty(ref _tagRead, value);
+                UID = TagRead.UID;
+                TokenID = TagRead.ID;
+                DataPage35 = TagRead.Pages[DataRegister.Page35];
+                DataPage36 = TagRead.Pages[DataRegister.Page36];
+                DataPage37 = TagRead.Pages[DataRegister.Page37];
+                DataPage38 = TagRead.Pages[DataRegister.Page38];
+                DataPage43 = TagRead.Pages[DataRegister.Page43];
+            } }
+
+        private string _uid;
+        public string UID { get => _uid; set => SetProperty(ref _uid, value); }
+
+        private uint? _tokenID;
+        public uint? TokenID { get => _tokenID; set => SetProperty(ref _tokenID, value); }
+
+        private string _dataPage35;
+        public string DataPage35 { get => _dataPage35; set => SetProperty(ref _dataPage35, value); }
+
+        private string _dataPage36;
+        public string DataPage36 { get => _dataPage36; set => SetProperty(ref _dataPage36, value); }
+
+        private string _dataPage37;
+        public string DataPage37 { get => _dataPage37; set => SetProperty(ref _dataPage37, value); }
+
+        private string _dataPage38;
+        public string DataPage38 { get => _dataPage38; set => SetProperty(ref _dataPage38, value); }
+
+        private string _dataPage43;
+        public string DataPage43 { get => _dataPage43; set => SetProperty(ref _dataPage43, value); }
+
+        private bool _IOButtonEnabled;
+        public bool IOButtonEnabled { get => _IOButtonEnabled; set => SetProperty(ref _IOButtonEnabled, value); }
 
         public DeviceViewModel()
         {
             SelectionChangedCmd = new RelayCommand<object>(SelectionChanged);
             RefreshPortsCmd = new RelayCommand(RefreshPorts);
             ConnectCmd = new RelayCommand(Connect);
+            ReadCmd = new RelayCommand(Read);
             RefreshPorts();
             
         }
@@ -65,6 +105,24 @@ namespace LegoCrypto.WPF.App
             {
                 ConnectStatus = arduino.CheckDevice() ? "Success" : "Fail";
             }
+
+            if (ConnectStatus == "Success")
+            {
+                NfcDevice = new IO.Arduino.ArduinoNFC(((COMPortInfo)_collectionView.CurrentItem).Name, 9600, 3000);
+                IOButtonEnabled = true;
+            }
+            else
+            {
+                NfcDevice = null;
+                IOButtonEnabled = false;
+            }
+
+        }
+
+        public void Read()
+        {
+            if (NfcDevice != null)
+                TagRead = NfcDevice.ReadNtag();
         }
     }
 }
