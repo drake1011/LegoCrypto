@@ -33,10 +33,10 @@ namespace LegoCrypto.WPF.App
 
         #region Background Brush Properties
         private Brush _defaultbgBrush = new SolidColorBrush(Colors.White);
-        public Brush DefaultBGBrush { get => _defaultbgBrush; set => SetProperty(ref _defaultbgBrush, value); }
+        public Brush DefaultBGBrush { get => _defaultbgBrush; set { SetProperty(ref _defaultbgBrush, value); ChangeEditMode(); } }
 
         private Brush _readonlybgBrush = new SolidColorBrush(System.Windows.SystemColors.ControlDarkColor);
-        public Brush ReadOnlyBGBrush { get => _readonlybgBrush; set => SetProperty(ref _readonlybgBrush, value); }
+        public Brush ReadOnlyBGBrush { get => _readonlybgBrush; set { SetProperty(ref _readonlybgBrush, value); ChangeEditMode(); } }
 
         private Brush _uid_bgBrush;
         public Brush UID_bgBrush { get => _uid_bgBrush; set => SetProperty(ref _uid_bgBrush, value); }
