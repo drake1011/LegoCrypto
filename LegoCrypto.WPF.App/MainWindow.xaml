@@ -4,46 +4,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LegoCrypto.WPF.App"
+        xmlns:vm="clr-namespace:LegoCrypto.WPF.App.ViewModels"
+        xmlns:vw="clr-namespace:LegoCrypto.WPF.App.Views"
         mc:Ignorable="d"
         Title="LegoCrypto" Height="400" Width="520" MinHeight="330" MinWidth="200" MaxHeight="450" MaxWidth="560"
         Icon="./Resources/L900032x166_256_32.ico" >
-    <Window.DataContext>
-        <local:CryptoViewModel />
-    </Window.DataContext>
-    <TabControl Controls:TabControlHelper.IsUnderlined="True">
-        <TabItem Header="Crypto">
-            <Grid Margin="4">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="6*" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <RadioButton Grid.Row="0" Content="Encrypt" Width="70" Height="30" TabIndex="30"
-                         Command="{Binding RadioChangeCmd}" IsChecked="{Binding Encrypt}" />
-            <RadioButton Grid.Row="0" Content="Decrypt" Width="70" Height="30" TabIndex="31"
-                         Command="{Binding RadioChangeCmd}" />
-        </WrapPanel>
-        <local:TagDataView Grid.Row="1" x:Name="TagFields" TagData="{Binding TagData}" EditMode="{Binding EditModeProp}"
-                           TokenID="{Binding TokenID}" 
-                           UID="{Binding UID}"
-                           DataPage35="{Binding DataPage35}"
-                           DataPage36="{Binding DataPage36}"
-                           DataPage37="{Binding DataPage37}"
-                           DataPage38="{Binding DataPage38}"
-                           DataPage43="{Binding DataPage43}"
-                           HorizontalAlignment="Center" VerticalAlignment="Center"
-                           FontSize="14" TabIndex="0" />
-                <Button Grid.Row="2" Content="Calculate" HorizontalAlignment="Center" Width="75" 
-                Command="{Binding CalculateCmd}" Margin="4" FontSize="14" TabIndex="20" />
-            </Grid>
-        </TabItem>
-        <TabItem Header="Tokens">
-            <local:TokenSelectionView />
-        </TabItem>
-        <TabItem Header="IO">
-            <local:DeviceView />
-        </TabItem>
-    </TabControl>
+    <Window.Resources>
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type vm:CryptoViewModel }" >
+                <vw:CryptoView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:TokenSelectionViewModel }" >
+                <vw:TokenSelectionView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DeviceViewModel }" >
+                <vw:DeviceView />
+            </DataTemplate>
+            <DataTemplate x:Key="TabItemTemplate">
+                <DockPanel>
+                    <ContentPresenter Content="{Binding Path=DisplayName}" />
+                </DockPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="WorkspacesTemplate">
+                <TabControl IsSynchronizedWithCurrentItem="True" 
+                            ItemsSource="{Binding}" 
+                            ItemTemplate="{StaticResource TabItemTemplate}" 
+                            Controls:TabControlHelper.IsUnderlined="True"
+                            Margin="4" />
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+    <ContentControl Content="{Binding Path=Workspaces}" ContentTemplate="{StaticResource WorkspacesTemplate}" />
 </Controls:MetroWindow>

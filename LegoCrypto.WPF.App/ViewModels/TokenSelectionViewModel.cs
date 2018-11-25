@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace LegoCrypto.WPF.App
+namespace LegoCrypto.WPF.App.ViewModels
 {
     public class TokenSelectionViewModel : ViewModelBase
     {
@@ -26,6 +26,7 @@ namespace LegoCrypto.WPF.App
 
         public TokenSelectionViewModel()
         {
+            DisplayName = "Tokens";
             StatusMessage += " | ";
             try
             {

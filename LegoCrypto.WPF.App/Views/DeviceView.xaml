@@ -1,15 +1,16 @@
-﻿<UserControl x:Class="LegoCrypto.WPF.App.DeviceView"
+﻿<UserControl x:Class="LegoCrypto.WPF.App.Views.DeviceView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ie="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             xmlns:local="clr-namespace:LegoCrypto.WPF.App"
+             xmlns:vw="clr-namespace:LegoCrypto.WPF.App.Views"
+             xmlns:vm="clr-namespace:LegoCrypto.WPF.App.ViewModels"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" >
     <Grid x:Name="root">
         <Grid.DataContext>
-            <local:DeviceViewModel />
+            <vm:DeviceViewModel />
         </Grid.DataContext>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -70,7 +71,7 @@
                         <RowDefinition Height="7*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <local:TagDataView Grid.Row="0" TagData="{Binding TagRead}" HorizontalAlignment="Center" EditMode="ReadOnly" TextBoxReadOnlyBGBrush="White"
+                    <vw:TagDataView Grid.Row="0" TagData="{Binding TagRead}" HorizontalAlignment="Center" EditMode="ReadOnly" TextBoxReadOnlyBGBrush="White"
                            TokenID="{Binding TokenID}" 
                            UID="{Binding UID}"
                            DataPage35="{Binding DataPage35}"

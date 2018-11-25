@@ -18,8 +18,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SysLib.Bitwise;
+using LegoCrypto.WPF.App.ViewModels;
 
-namespace LegoCrypto.WPF.App
+namespace LegoCrypto.WPF.App.Views
 {
     /// <summary>
     /// Interaction logic for TagDataView.xaml
