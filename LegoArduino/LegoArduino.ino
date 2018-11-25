@@ -136,7 +136,7 @@ void Ntag_Full_Read()
         Serial.print(Begin_of_Message);
         Serial.print("/ERROR/");
         Serial.print(mfrc522.GetStatusCodeName(status));
-        Serial.print(End_of_Message);
+        break;
     }     
     
     for (byte b = 0; b < 4; b++)

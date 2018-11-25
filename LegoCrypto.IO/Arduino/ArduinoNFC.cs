@@ -36,24 +36,31 @@ namespace LegoCrypto.IO.Arduino
         {
             using (var arduino = new ArduinoDriver(_comPort, _baudRate, _timeOut))
             {
-                var output = WaitForNtagHere(arduino);
-                if (output == ArduinoCommands.NTAG_FOUND)
-                {
-                    return NtagRead(arduino);
-                }
+                return WaitRead(arduino);
             }
-            return null;
+        }
+
+        private ITag WaitRead(ArduinoDriver arduino)
+        {
+            var output = WaitForNtagHere(arduino);
+            if (output == ArduinoCommands.NTAG_FOUND)
+            {
+                return NtagRead(arduino);
+            }
+            return (ITag)TagFactory.CreateTag();
         }
 
         private ITag NtagRead(ArduinoDriver arduino)
         {
             var result = string.Empty;
+
             result = arduino.SendCommand(ArduinoCommands.NTAG_FULL);
             string[] SplitResult = result.Split('/', ' ');
 
             if (SplitResult.Length > 1)
             {
-
+                Console.WriteLine(result);
+                return WaitRead(arduino);
             }
 
             return TagFactory.CreateTag(result);
