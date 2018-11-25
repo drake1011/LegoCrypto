@@ -60,7 +60,7 @@
                         <RowDefinition Height="7*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <local:TagDataView Grid.Row="0" TagData="{Binding TagRead}" HorizontalAlignment="Center" 
+                    <local:TagDataView Grid.Row="0" TagData="{Binding TagRead}" HorizontalAlignment="Center" EditMode="ReadOnly" TextBoxReadOnlyBGBrush="White"
                            TokenID="{Binding TokenID}" 
                            UID="{Binding UID}"
                            DataPage35="{Binding DataPage35}"
