@@ -7,9 +7,6 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
              mc:Ignorable="d" >
     <Grid>
-        <Grid.DataContext>
-            <vm:TokenSelectionViewModel />
-        </Grid.DataContext>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />

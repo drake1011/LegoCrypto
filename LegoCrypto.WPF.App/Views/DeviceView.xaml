@@ -9,9 +9,6 @@
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" >
     <Grid x:Name="root">
-        <Grid.DataContext>
-            <vm:DeviceViewModel />
-        </Grid.DataContext>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />

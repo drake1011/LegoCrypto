@@ -1,8 +1,11 @@
-﻿using System;
+﻿using LegoCrypto.Data;
+using LegoCrypto.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +33,12 @@ namespace LegoCrypto.WPF.App.ViewModels
             }
         }
 
+        public Character[] Characters { get; set; }
+        public Vehicle[] Vehicles { get; set; }
+
+        private readonly string _charactermap = "charactermap.json";
+        private readonly string _vehiclemap = "vehiclemap.json";
+
         private void OnWorkspacesChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             //throw new NotImplementedException();
@@ -37,7 +46,23 @@ namespace LegoCrypto.WPF.App.ViewModels
 
         public MainWindowViewModel()
         {
-            var tokenVm = new TokenSelectionViewModel();
+            try
+            {
+                Characters = TokenRepo<Character>.Load($"Resources{Path.DirectorySeparatorChar}{_charactermap}");
+            }
+            catch
+            {
+            }
+
+            try
+            {
+                Vehicles = TokenRepo<Vehicle>.Load($"Resources{Path.DirectorySeparatorChar}{_vehiclemap}");
+            }
+            catch
+            {
+            }
+
+            var tokenVm = new TokenSelectionViewModel(Characters, Vehicles);
             var deviceVm = new DeviceViewModel();
             var cryptoVm = new CryptoViewModel();
 
@@ -46,6 +71,8 @@ namespace LegoCrypto.WPF.App.ViewModels
             Workspaces.Add(deviceVm);
             SetActiveWorkspace(cryptoVm);
         }
+
+
 
         void SetActiveWorkspace(ViewModelBase workspace)
         {
