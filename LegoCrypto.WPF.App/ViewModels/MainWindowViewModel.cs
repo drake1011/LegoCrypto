@@ -33,36 +33,32 @@ namespace LegoCrypto.WPF.App.ViewModels
             }
         }
 
-        public Character[] Characters { get; set; }
-        public Vehicle[] Vehicles { get; set; }
+        public ObservableCollection<ViewModelBase> tokenWorkspace;
 
         private readonly string _charactermap = "charactermap.json";
         private readonly string _vehiclemap = "vehiclemap.json";
+        private readonly TokenRepo _tokenRepo;
+        private ICollectionView _tokenWorkspaceView;
 
         private void OnWorkspacesChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             //throw new NotImplementedException();
         }
-
+        
         public MainWindowViewModel()
         {
-            try
-            {
-                Characters = TokenRepo<Character>.Load($"Resources{Path.DirectorySeparatorChar}{_charactermap}");
-            }
-            catch
-            {
-            }
+            _tokenRepo = new TokenRepo();
+            _tokenRepo.LoadData($"Resources{Path.DirectorySeparatorChar}{_charactermap}", $"Resources{Path.DirectorySeparatorChar}{_vehiclemap}");
 
-            try
-            {
-                Vehicles = TokenRepo<Vehicle>.Load($"Resources{Path.DirectorySeparatorChar}{_vehiclemap}");
-            }
-            catch
-            {
-            }
+            var charVm = new CharactersViewModel(_tokenRepo);
+            var vehicleVm = new VehiclesViewModel(_tokenRepo);
+            tokenWorkspace = new ObservableCollection<ViewModelBase>();
+            
+            tokenWorkspace.Add(charVm);
+            tokenWorkspace.Add(vehicleVm);
+            _tokenWorkspaceView = CollectionViewSource.GetDefaultView(tokenWorkspace);
 
-            var tokenVm = new TokenSelectionViewModel(Characters, Vehicles);
+            var tokenVm = new TokenSelectionViewModel(tokenWorkspace);
             var deviceVm = new DeviceViewModel();
             var cryptoVm = new CryptoViewModel();
 
@@ -71,8 +67,6 @@ namespace LegoCrypto.WPF.App.ViewModels
             Workspaces.Add(deviceVm);
             SetActiveWorkspace(cryptoVm);
         }
-
-
 
         void SetActiveWorkspace(ViewModelBase workspace)
         {

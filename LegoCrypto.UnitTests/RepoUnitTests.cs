@@ -18,29 +18,33 @@ namespace LegoCrypto.UnitTests
         [Fact]
         public void Test_Load_Characters()
         {
-            var tokens = TokenRepo<Character>.Load(_charactermap);
+            var tokenRepo = new TokenRepo();
+            var tokens = tokenRepo.LoadTokens<Character>(_charactermap);
             Assert.True(tokens.Length > 0);
         }
 
         [Fact]
         public void Test_Load_Vehicles()
         {
-            var tokens = TokenRepo<Vehicle>.Load(_vehiclemap);
+            var tokenRepo = new TokenRepo();
+            var tokens = tokenRepo.LoadTokens<Vehicle>(_vehiclemap);
             Assert.True(tokens.Length > 0);
         }
 
         [Fact]
         public void Test_Write_Characters()
         {
+            var tokenRepo = new TokenRepo();
             var characters = new Character[] { _character, _character, _character };
 
             if (File.Exists(_tempCharactermap))
                 File.Delete(_tempCharactermap);
 
-            TokenRepo<Character>.Write(characters, _tempCharactermap);
+            tokenRepo.WriteTokens(characters, _tempCharactermap);
+
             Assert.True(File.Exists(_tempCharactermap));
 
-            var tokens = TokenRepo<Character>.Load(_tempCharactermap);
+            var tokens = tokenRepo.LoadTokens<Character>(_tempCharactermap);
             Assert.Equal(tokens.Length, characters.Length);
 
             if (File.Exists(_tempCharactermap))
@@ -50,15 +54,16 @@ namespace LegoCrypto.UnitTests
         [Fact]
         public void Test_Write_Vehicle()
         {
+            var tokenRepo = new TokenRepo();
             var vehicles = new Vehicle[] { _vehicle, _vehicle };
 
             if (File.Exists(_tempVehiclemap))
                 File.Delete(_tempVehiclemap);
 
-            TokenRepo<Vehicle>.Write(vehicles, _tempVehiclemap);
+            tokenRepo.WriteTokens(vehicles, _tempVehiclemap);
             Assert.True(File.Exists(_tempVehiclemap));
 
-            var tokens = TokenRepo<Vehicle>.Load(_tempVehiclemap);
+            var tokens = tokenRepo.LoadTokens<Vehicle>(_tempVehiclemap);
             Assert.Equal(tokens.Length, vehicles.Length);
 
             if (File.Exists(_tempVehiclemap))

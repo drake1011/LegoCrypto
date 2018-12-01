@@ -76,11 +76,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\CharactersViewModel.cs" />
     <Compile Include="ViewModels\CryptoViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\DeviceViewModel.cs" />
+    <Compile Include="ViewModels\ITokenViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\TokenItemViewModel.cs" />
     <Compile Include="ViewModels\TokenSelectionViewModel.cs" />
+    <Compile Include="ViewModels\VehiclesViewModel.cs" />
+    <Compile Include="Views\CharactersView.xaml.cs">
+      <DependentUpon>CharactersView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CryptoView.xaml.cs">
       <DependentUpon>CryptoView.xaml</DependentUpon>
     </Compile>
@@ -92,8 +99,14 @@
     </Compile>
     <Compile Include="ViewModels\TagDataViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\TokenItemView.xaml.cs">
+      <DependentUpon>TokenItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TokenSelectionView.xaml.cs">
       <DependentUpon>TokenSelectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VehiclesView.xaml.cs">
+      <DependentUpon>VehiclesView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +120,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CharactersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CryptoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -119,7 +136,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\TokenItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TokenSelectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VehiclesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

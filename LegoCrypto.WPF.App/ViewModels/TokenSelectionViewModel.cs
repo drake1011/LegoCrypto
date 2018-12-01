@@ -2,37 +2,77 @@
 using LegoCrypto.Data.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace LegoCrypto.WPF.App.ViewModels
 {
     public class TokenSelectionViewModel : ViewModelBase
     {
-        private Character[] _characters;
-        public Character[] Characters { get => _characters; set => SetProperty(ref _characters, value); }
-
-        private Vehicle[] _vehicles;
-        public Vehicle[] Vehicles { get => _vehicles; set => SetProperty(ref _vehicles, value); }
-
         private string _statusMessage = string.Empty;
         public string StatusMessage { get => _statusMessage; set => SetProperty(ref _statusMessage, value); }
 
-        public TokenSelectionViewModel(Character[] characters, Vehicle[] vehicles)
+        public RelayCommand<object> SelectionChangedCmd { get; set; }
+        public RelayCommand clickme { get; set; }
+        private TokenRepo _tokenRepo;
+        public ObservableCollection<ViewModelBase> Workspaces { get; set; }
+        //private ObservableCollection<ViewModelBase> _workspaces;
+        //public ObservableCollection<ViewModelBase> Workspaces
+        //{
+        //    get
+        //    {
+        //        if (_workspaces == null)
+        //        {
+        //            _workspaces = new ObservableCollection<ViewModelBase>();
+        //        }
+        //        return _workspaces;
+        //    }
+        //    set
+        //    {
+        //        _workspaces = value;
+        //    }
+        //}
+
+        public TokenSelectionViewModel(ObservableCollection<ViewModelBase> tokenWorkspaces)
         {
             DisplayName = "Tokens";
-            StatusMessage += " | ";
-
-            Characters = characters;
-            StatusMessage += $"{Characters?.Length} Characters";
+            //SelectionChangedCmd = new RelayCommand<object>(SelectedTabChanged);
+            //_tokenRepo = tokenRepo;
 
             StatusMessage += " | ";
+            //StatusMessage += $"{_tokenRepo.Characters?.Count} Characters";
+            //StatusMessage += " | ";
+            //StatusMessage += $"{_tokenRepo.Vehicles?.Count} Vehicles";
 
-            Vehicles = vehicles;
-            StatusMessage += $"{Vehicles?.Length} Vehicles";
+            //var characterVm = new CharactersViewModel(_tokenRepo);
+            //var vehicleVm = new VehiclesViewModel(_tokenRepo);
+
+            //Workspaces.Add(characterVm);
+            //Workspaces.Add(vehicleVm);
+            clickme = new RelayCommand(cl);
+            Workspaces = tokenWorkspaces;
+        }
+        public void cl()
+        {
+            var res = CollectionViewSource.GetDefaultView(Workspaces).CurrentItem;
+        }
+        public void SelectedTabChanged(object tabName)
+        {
+            //switch(tabName)
+            //{
+            //    case "Character":
+            //        _trs.SelectedToken = (IToken)CollectionViewSource.GetDefaultView(Characters).CurrentItem;
+            //        break;
+            //    case "Vehicle":
+            //        _trs.SelectedToken = (IToken)CollectionViewSource.GetDefaultView(Vehicles);
+            //        break;
+            //}
         }
     }
 }

@@ -4,33 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:LegoCrypto.WPF.App.ViewModels"
-             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+             xmlns:vw="clr-namespace:LegoCrypto.WPF.App.Views"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:ie="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type vm:CharactersViewModel }" >
+                <vw:CharactersView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:VehiclesViewModel }" >
+                <vw:VehiclesView />
+            </DataTemplate>
+            <DataTemplate x:Key="TabItemTemplate">
+                <DockPanel>
+                    <ContentPresenter Content="{Binding Path=DisplayName}" />
+                </DockPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="WorkspacesTemplate">
+                <TabControl IsSynchronizedWithCurrentItem="True" 
+                            ItemsSource="{Binding}" 
+                            ItemTemplate="{StaticResource TabItemTemplate}" 
+                            mah:TabControlHelper.IsUnderlined="True"
+                            TabStripPlacement="Left"
+                            Margin="4" />
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TabControl Grid.Row="0" TabStripPlacement="Left" mah:TabControlHelper.IsUnderlined="True">
-            <TabItem Header="Character" mah:ControlsHelper.HeaderFontSize="20">
-                <DataGrid ItemsSource="{Binding Characters}" FontSize="14" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Width="40" MinWidth="40" MaxWidth="50" Binding="{Binding ID}" Header="ID" />
-                            <DataGridTextColumn Width="4*" MinWidth="50" Binding="{Binding Name}" Header="Name"/>
-                            <DataGridTextColumn Width="5*" MinWidth="100" Binding="{Binding World}" Header="World" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-            </TabItem>
-            <TabItem Header="Vehicle" mah:ControlsHelper.HeaderFontSize="20">
-                <DataGrid Grid.Row="0" ItemsSource="{Binding Vehicles}" FontSize="14" AutoGenerateColumns="False" SelectionMode="Single">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="40" MinWidth="40" MaxWidth="50" Binding="{Binding ID}" Header="ID" />
-                        <DataGridTextColumn Width="82" MinWidth="40" MaxWidth="100" Binding="{Binding Rebuild}" Header="Rebuild" />
-                        <DataGridTextColumn Width="*" MinWidth="100" Binding="{Binding Name}" Header="Name" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-        </TabControl>
+        <ContentControl Grid.Row="0" Content="{Binding Path=Workspaces}" ContentTemplate="{StaticResource WorkspacesTemplate}" />
         <StatusBar Grid.Row="1">
             <StatusBarItem Content="Tokens" />
             <StatusBarItem Content="{Binding StatusMessage}" />
