@@ -130,9 +130,14 @@ namespace LegoCrypto.WPF.App.ViewModels
 
         private void CheckDevice()
         {
-            using (var arduino = new IO.Arduino.ArduinoNFC(((COMPortInfo)_collectionView.CurrentItem).Name, 9600, 800))
+            if (_collectionView.CurrentItem == null)
+                ConnectStatus = "No Port Selected";
+            else
             {
-                ConnectStatus = arduino.CheckDevice() ? "Arduino Verified" : "Unverified!";
+                using (var arduino = new IO.Arduino.ArduinoNFC(((COMPortInfo)_collectionView.CurrentItem).Name, 9600, 800))
+                {
+                    ConnectStatus = arduino.CheckDevice() ? "Arduino Verified" : "Unverified!";
+                }
             }
 
             if (ConnectStatus == "Arduino Verified")
