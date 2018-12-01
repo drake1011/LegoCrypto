@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LegoCrypto.WPF.App.Views"
-             xmlns:ie="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" >
     <Grid>
         <DataGrid ItemsSource="{Binding Tokens}" FontSize="14" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single" IsSynchronizedWithCurrentItem="True" >
@@ -13,12 +11,6 @@
                 <DataGridTextColumn Width="4*" MinWidth="50" Binding="{Binding Name}" Header="Name"/>
                 <DataGridTextColumn Width="5*" MinWidth="100" Binding="{Binding World}" Header="World" />
             </DataGrid.Columns>
-            <ie:Interaction.Triggers>
-                <ie:EventTrigger EventName="SelectionChanged">
-                    <ie:InvokeCommandAction Command="{Binding SelectionChangedCmd}" 
-                                                        CommandParameter="{Binding ElementName=tab, Path=SelectedItem.Header}" />
-                </ie:EventTrigger>
-            </ie:Interaction.Triggers>
         </DataGrid>
     </Grid>
 </UserControl>

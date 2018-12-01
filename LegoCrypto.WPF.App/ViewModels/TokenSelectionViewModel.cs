@@ -18,8 +18,6 @@ namespace LegoCrypto.WPF.App.ViewModels
         private string _statusMessage = string.Empty;
         public string StatusMessage { get => _statusMessage; set => SetProperty(ref _statusMessage, value); }
 
-        public RelayCommand<object> SelectionChangedCmd { get; set; }
-        public RelayCommand clickme { get; set; }
         private TokenRepo _tokenRepo;
         public ObservableCollection<ViewModelBase> Workspaces { get; set; }
         //private ObservableCollection<ViewModelBase> _workspaces;
@@ -55,13 +53,9 @@ namespace LegoCrypto.WPF.App.ViewModels
 
             //Workspaces.Add(characterVm);
             //Workspaces.Add(vehicleVm);
-            clickme = new RelayCommand(cl);
             Workspaces = tokenWorkspaces;
         }
-        public void cl()
-        {
-            var res = CollectionViewSource.GetDefaultView(Workspaces).CurrentItem;
-        }
+
         public void SelectedTabChanged(object tabName)
         {
             //switch(tabName)
